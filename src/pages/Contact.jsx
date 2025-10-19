@@ -1,65 +1,130 @@
-// ============================================
-// src/pages/Contact.jsx
-// ============================================
-import { useState } from 'react'
-import Card from '../components/Card'
+import React, { useState } from 'react'
+import { Mail, Phone, MapPin, Send } from 'lucide-react'
 import Toast from '../components/Toast'
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', message: '' })
-  const [toast, setToast] = useState({ show: false, message: '' })
+  const [form, setForm] = useState({ name: '', email: '', company: '', message: '' })
+  const [toast, setToast] = useState({ visible: false, message: '', type: 'info' })
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setToast({ show: true, message: 'Message transmitted successfully!' })
-    setForm({ name: '', message: '' })
+    if (!form.name || !form.email || !form.message) {
+      setToast({ visible: true, message: 'Please fill in all required fields', type: 'error' })
+      return
+    }
+    setToast({ visible: true, message: 'Message sent successfully!', type: 'success' })
+    setForm({ name: '', email: '', company: '', message: '' })
   }
 
+  const contactInfo = [
+    { icon: Mail, label: 'Email', value: 'contact@nancoda.com' },
+    { icon: Phone, label: 'Phone', value: '+1 (555) 123-4567' },
+    { icon: MapPin, label: 'Location', value: 'Mandaluyong City, Metro Manila' }
+  ]
+
   return (
-    <div className="p-8 bg-da-green-dark min-h-full">
-      <div className="max-w-2xl mx-auto">
-        <Card>
-          <h3 className="text-2xl font-bold text-da-gold mb-4">Contact Us</h3>
-          <p className="mb-2 text-da-bone"><strong>Email:</strong> <span className="text-text-muted">jcfarabit@gmail.com</span></p>
-          <p className="mb-2 text-da-bone"><strong>Phone:</strong> <span className="text-text-muted">(+63) 909-158-7781</span></p>
-          <p className="mb-6 text-da-bone"><strong>Location:</strong> <span className="text-text-muted">Municipality of Isulan, Sultan Kudarat 9805</span></p>
-          <hr className="border-da-crimson mb-6" />
-          
-          <form onSubmit={handleSubmit}>
-            <div className="mb-6">
-              <label className="block font-semibold mb-2 text-da-bone">Name</label>
-              <input 
-                type="text" 
-                value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="w-full px-4 py-3 border border-da-green bg-da-green-dark text-da-bone rounded focus:outline-none focus:border-da-crimson focus:ring-2 focus:ring-da-crimson/20"
-                placeholder="Your full name"
-                required
-              />
-            </div>
-            <div className="mb-6">
-              <label className="block font-semibold mb-2 text-da-bone">Message</label>
-              <textarea 
-                value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-                className="w-full px-4 py-3 border border-da-green bg-da-green-dark text-da-bone rounded focus:outline-none focus:border-da-crimson focus:ring-2 focus:ring-da-crimson/20"
-                rows="4"
-                placeholder="How can we assist you?"
-                required
-              />
-            </div>
-            <div className="flex justify-end">
-              <button 
-                type="submit" 
-                className="bg-da-crimson text-da-bone px-6 py-3 rounded font-semibold hover:bg-red-900 transition-colors"
-              >
-                Send Message
-              </button>
-            </div>
-          </form>
-        </Card>
+    <main className="bg-black">
+      <div className="max-w-7xl mx-auto px-6 py-20 text-center">
+        <div className="inline-block px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full mb-8">
+          <p className="text-xs text-emerald-500 font-semibold">Get In Touch</p>
+        </div>
+
+        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Let's Build Something Great Together</h1>
+        <p className="text-xl text-gray-400">Have a project in mind? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
       </div>
-      <Toast {...toast} onClose={() => setToast({ ...toast, show: false })} />
-    </div>
+
+      <div className="max-w-7xl mx-auto px-6 pb-20 grid md:grid-cols-2 gap-12">
+        <div className="bg-black border border-gray-800 rounded-2xl p-8">
+          <h2 className="text-2xl font-bold text-white mb-8">Send us a message</h2>
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label className="block text-sm font-semibold text-gray-300 mb-2">Name *</label>
+              <input
+                type="text"
+                value={form.name}
+                onChange={(e) => setForm({...form, name: e.target.value})}
+                placeholder="Your name"
+                className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-emerald-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-gray-300 mb-2">Email *</label>
+              <input
+                type="email"
+                value={form.email}
+                onChange={(e) => setForm({...form, email: e.target.value})}
+                placeholder="your.email@example.com"
+                className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-emerald-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-gray-300 mb-2">Company</label>
+              <input
+                type="text"
+                value={form.company}
+                onChange={(e) => setForm({...form, company: e.target.value})}
+                placeholder="Your company name"
+                className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-emerald-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-gray-300 mb-2">Message *</label>
+              <textarea
+                value={form.message}
+                onChange={(e) => setForm({...form, message: e.target.value})}
+                placeholder="Tell us about your project..."
+                rows="6"
+                className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-emerald-500"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-emerald-500 text-black font-bold py-3 rounded-lg hover:bg-emerald-600 flex items-center justify-center gap-2"
+            >
+              Send Message
+              <Send size={20} />
+            </button>
+          </form>
+        </div>
+
+        <div>
+          <h2 className="text-2xl font-bold text-white mb-8">Contact Information</h2>
+
+          <div className="space-y-4 mb-12">
+            {contactInfo.map((item, i) => {
+              const Icon = item.icon
+              return (
+                <div key={i} className="flex items-center gap-4 bg-black border border-gray-800 rounded-lg p-6">
+                  <div className="w-12 h-12 bg-emerald-500/10 border border-emerald-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Icon className="text-emerald-500" size={24} />
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 mb-1">{item.label}</p>
+                    <p className="font-semibold text-white">{item.value}</p>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+          <div className="h-64 bg-gray-900 border border-gray-800 rounded-lg flex items-center justify-center flex-col gap-4">
+            <MapPin className="text-emerald-500" size={48} />
+            <p className="text-gray-500">Map view placeholder</p>
+          </div>
+        </div>
+      </div>
+
+      <Toast
+        visible={toast.visible}
+        message={toast.message}
+        type={toast.type}
+        onHide={() => setToast({...toast, visible: false})}
+      />
+    </main>
   )
 }

@@ -1,112 +1,152 @@
-// ============================================
-// src/pages/Home.jsx
-// ============================================
-import { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
-import Carousel from '../components/Carousel'
+import React, { useState } from 'react'
+import { Shield, Lock, Sword, Users, Zap, CheckCircle, ArrowRight } from 'lucide-react'
 import Card from '../components/Card'
-import Accordion from '../components/Accordion'
-
-const slides = [
-  { 
-    title: 'Enterprise-Grade Solutions', 
-    content: 'Our platforms deliver institutional reliability with scalable architecture designed for long-term operational success.' 
-  },
-  { 
-    title: 'Adaptive Infrastructure', 
-    content: 'From attendance systems to inventory management, our modular solutions evolve alongside your organizational requirements.' 
-  },
-  { 
-    title: 'Professional Standards', 
-    content: 'Engineered with precision, tested rigorously, deployed with comprehensive support.' 
-  }
-]
-
-const values = [
-  { 
-    icon: '🛡️', 
-    title: 'Integrity', 
-    content: 'We maintain unwavering commitment to quality and ethical business practices throughout every project lifecycle.' 
-  },
-  { 
-    icon: '🔒', 
-    title: 'Security', 
-    content: 'Robust systems with continuous monitoring and proactive threat management ensure your operations remain protected.' 
-  },
-  { 
-    icon: '⚔️', 
-    title: 'Excellence', 
-    content: 'Mastery in software engineering, delivering solutions that exceed industry standards and client expectations.' 
-  }
-]
+import Carousel from '../components/Carousel'
 
 export default function Home() {
-  const location = useLocation()
+  const [activeValue, setActiveValue] = useState(null)
 
-  useEffect(() => {
-    document.getElementById('main')?.classList.add('bg-home')
-    return () => document.getElementById('main')?.classList.remove('bg-home')
-  }, [location])
+  const slides = [
+    {
+      title: 'Enterprise-Grade Solutions',
+      content: 'Our platforms deliver institutional reliability with scalable architecture designed for long-term operational success.',
+      stat: '99.9%',
+      label: 'Uptime'
+    },
+    {
+      title: 'Adaptive Infrastructure',
+      content: 'From attendance systems to inventory management, our modular solutions evolve alongside your organizational requirements.',
+      stat: '10x',
+      label: 'Faster'
+    },
+    {
+      title: 'Professional Standards',
+      content: 'Engineered with precision, tested rigorously, deployed with comprehensive support.',
+      stat: '24/7',
+      label: 'Support'
+    }
+  ]
+
+  const values = [
+    {
+      icon: Shield,
+      title: 'Integrity',
+      content: 'We maintain unwavering commitment to quality and ethical business practices throughout every project lifecycle.'
+    },
+    {
+      icon: Lock,
+      title: 'Security',
+      content: 'Robust systems with continuous monitoring and proactive threat management ensure your operations remain protected.'
+    },
+    {
+      icon: Sword,
+      title: 'Excellence',
+      content: 'Mastery in software engineering, delivering solutions that exceed industry standards and client expectations.'
+    }
+  ]
+
+  const services = ['Custom Software Development', 'System Integration', 'Digital Transformation', 'Cloud Architecture']
 
   return (
-    <div 
-      id="main" 
-      className="p-8 md:p-16 bg-gradient-to-br from-primary via-secondary to-primary min-h-full"
-    >
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16 animate-fade-in">
-          <h1 className="text-6xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-bone via-gold to-bone mb-6 drop-shadow-2xl">
-            NaN Coda
-          </h1>
-          <div className="flex items-center justify-center gap-4 text-gold">
-            <div className="h-px w-12 bg-gradient-to-r from-transparent to-gold"></div>
-            <p className="text-xl md:text-2xl font-light tracking-wider">Precision. Reliability. Excellence.</p>
-            <div className="h-px w-12 bg-gradient-to-l from-transparent to-gold"></div>
-          </div>
+    <main className="bg-black">
+      <div className="min-h-screen flex flex-col items-center justify-center px-6 py-20">
+        <div className="inline-block px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full mb-8">
+          <p className="text-xs text-emerald-500 font-semibold">Building the future of enterprise software</p>
         </div>
 
-        <div className="mb-20">
-          <Carousel slides={slides} />
+        <h1 className="text-6xl md:text-7xl font-black text-white text-center mb-4">NaN Coda</h1>
+        <h2 className="text-4xl md:text-5xl font-bold text-emerald-500 text-center mb-8">Precision. Reliability. Excellence.</h2>
+
+        <p className="text-xl text-gray-400 text-center max-w-2xl mb-12">
+          Transforming visions into enterprise-grade digital solutions that scale
+        </p>
+
+        <div className="flex flex-col md:flex-row gap-4 mb-16">
+          <button className="flex items-center justify-center gap-2 bg-emerald-500 text-black font-bold py-3 px-8 rounded-lg hover:bg-emerald-600">
+            Get Started
+            <ArrowRight size={20} />
+          </button>
+          <a href="/products" className="flex items-center justify-center gap-2 border border-gray-700 text-white font-bold py-3 px-8 rounded-lg hover:border-gray-500">
+            View Projects
+          </a>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-10">
-          <div className="bg-gradient-to-br from-secondary to-accent/20 backdrop-blur-sm border border-accent/30 rounded-2xl p-8 shadow-2xl hover:shadow-accent/20 transition-all duration-500 hover:-translate-y-2">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-1 h-8 bg-gradient-to-b from-gold to-crimson rounded-full"></div>
-              <h2 className="text-3xl font-bold text-bone">About Us</h2>
-            </div>
-            
-            <p className="text-text-secondary mb-6 leading-relaxed">
-              <strong className="text-gold">NaN Coda</strong> is dedicated to creating scalable, 
-              enterprise-grade systems that empower organizations to achieve operational excellence 
-              through innovative software solutions.
-            </p>
-            <p className="text-text-secondary mb-8 leading-relaxed">
-              With expertise in custom software development, system integration, and digital transformation, 
-              we deliver solutions that drive measurable business outcomes.
-            </p>
-            
-            <div className="grid grid-cols-2 gap-6 pt-8 border-t border-accent/30">
-              <div className="group text-center p-6 bg-accent/10 rounded-xl hover:bg-accent/20 transition-all duration-300 cursor-pointer hover:scale-105">
-                <div className="text-5xl mb-3 group-hover:scale-110 transition-transform duration-300">🤝</div>
-                <div className="font-semibold text-gold text-sm">Strategic Partnerships</div>
-              </div>
-              <div className="group text-center p-6 bg-accent/10 rounded-xl hover:bg-accent/20 transition-all duration-300 cursor-pointer hover:scale-105">
-                <div className="text-5xl mb-3 group-hover:scale-110 transition-transform duration-300">⚡</div>
-                <div className="font-semibold text-gold text-sm">Innovative Solutions</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-gradient-to-br from-secondary to-accent/20 backdrop-blur-sm border border-accent/30 rounded-2xl p-8 shadow-2xl hover:shadow-accent/20 transition-all duration-500 hover:-translate-y-2">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-1 h-8 bg-gradient-to-b from-gold to-crimson rounded-full"></div>
-              <h2 className="text-3xl font-bold text-bone">Our Values</h2>
-            </div>
-            <Accordion items={values} />
-          </div>
+        <div className="flex flex-col items-center">
+          <div className="w-0.5 h-16 bg-emerald-500" />
         </div>
       </div>
-    </div>
+
+      <div className="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-3 gap-6">
+        {slides.map((slide, i) => (
+          <Card key={i} variant="stat" stat={slide.stat} label={slide.label} title={slide.title} content={slide.content} />
+        ))}
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 py-20 bg-gradient-to-b from-transparent to-emerald-500/5">
+        <div className="inline-block px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full mb-8">
+          <p className="text-xs text-emerald-500 font-semibold">About Us</p>
+        </div>
+
+        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">Enterprise Solutions Built for Scale</h2>
+
+        <p className="text-lg text-gray-400 mb-8 leading-relaxed">
+          <span className="text-emerald-500 font-bold">NaN Coda</span> is dedicated to creating scalable, enterprise-grade systems that empower organizations to achieve operational excellence through innovative software solutions.
+        </p>
+
+        <div className="space-y-4 mb-12">
+          {services.map((service, i) => (
+            <div key={i} className="flex items-center gap-3">
+              <CheckCircle className="text-emerald-500 flex-shrink-0" size={20} />
+              <p className="text-gray-300">{service}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          <Card icon={Users} title="200+" content="Strategic Partners" />
+          <Card icon={Zap} title="500+" content="Projects Delivered" />
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 py-20">
+        <h2 className="text-4xl md:text-5xl font-bold text-white mb-12">Our Values</h2>
+
+        <div className="space-y-4">
+          {values.map((value, i) => {
+            const Icon = value.icon
+            const isActive = activeValue === i
+
+            return (
+              <button
+                key={i}
+                onClick={() => setActiveValue(isActive ? null : i)}
+                className={`w-full text-left p-6 rounded-lg border transition-colors ${
+                  isActive
+                    ? 'bg-emerald-500/10 border-emerald-500/50'
+                    : 'bg-gray-900/40 border-gray-700/50 hover:border-gray-600'
+                }`}
+              >
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-emerald-500/10 border border-emerald-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Icon className="text-emerald-500" size={24} />
+                  </div>
+                  <h3 className="text-xl font-bold text-white flex-1">{value.title}</h3>
+                </div>
+                {isActive && <p className="text-gray-400 mt-4 text-sm">{value.content}</p>}
+              </button>
+            )
+          })}
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 py-20 text-center">
+        <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Ready to Transform Your Business?</h2>
+        <p className="text-xl text-gray-400 mb-12">Let's build something exceptional together</p>
+        <a href="/contact" className="inline-flex items-center gap-3 bg-emerald-500 text-black font-bold py-4 px-10 rounded-lg hover:bg-emerald-600">
+          Start Your Project
+          <ArrowRight size={24} />
+        </a>
+      </div>
+    </main>
   )
 }

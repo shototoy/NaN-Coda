@@ -1,30 +1,54 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
+import { ChevronDown } from 'lucide-react'
 
 export default function Accordion({ items }) {
-  const [active, setActive] = useState(null)
-
-  const toggle = (index) => {
-    setActive(active === index ? null : index)
-  }
+  const [activeIndex, setActiveIndex] = useState(null)
 
   return (
     <div className="space-y-3">
-      {items.map((item, i) => (
-        <div key={i} className="border border-gray-200 rounded-lg p-3 bg-gray-50">
-          <div 
-            onClick={() => toggle(i)} 
-            className="flex justify-between items-center cursor-pointer font-semibold text-brand-orange"
+      {items.map((item, i) => {
+        const Icon = item.icon
+        const isActive = activeIndex === i
+
+        return (
+          <div
+            key={i}
+            className={`border rounded-xl overflow-hidden transition-colors ${
+              isActive
+                ? 'bg-emerald-500/10 border-emerald-500/30'
+                : 'bg-gray-900/40 border-gray-700/50'
+            }`}
           >
-            <span className="text-sm">{item.icon} {item.title}</span>
-            <button className={`text-lg transition-transform ${active === i ? 'rotate-180' : ''}`}>
-              ▼
+            <button
+              onClick={() => setActiveIndex(isActive ? null : i)}
+              className="w-full flex items-center gap-4 p-5 text-left"
+            >
+              <div
+                className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                  isActive ? 'bg-emerald-500/20' : 'bg-gray-700/50'
+                }`}
+              >
+                <Icon className="text-emerald-500" size={20} />
+              </div>
+
+              <h3 className={`flex-1 text-lg font-semibold ${isActive ? 'text-emerald-500' : 'text-gray-300'}`}>
+                {item.title}
+              </h3>
+
+              <ChevronDown
+                className={`text-emerald-500 transition-transform ${isActive ? 'rotate-180' : ''}`}
+                size={20}
+              />
             </button>
+
+            {isActive && (
+              <div className="px-5 pb-5">
+                <p className="text-sm text-gray-400">{item.content}</p>
+              </div>
+            )}
           </div>
-          <div className={`overflow-hidden transition-all duration-300 ${active === i ? 'max-h-96 mt-2 opacity-100' : 'max-h-0 opacity-0'}`}>
-            <p className="text-text-muted text-xs leading-relaxed">{item.content}</p>
-          </div>
-        </div>
-      ))}
+        )
+      })}
     </div>
   )
 }
