@@ -103,8 +103,8 @@ export default function Home() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
-          <Card icon={Users} title="200+" content="Strategic Partners" />
-          <Card icon={Zap} title="500+" content="Projects Delivered" />
+          <Card icon={Users} title="10+" content="Strategic Partners" />
+          <Card icon={Zap} title="20+" content="Projects Delivered" />
         </div>
       </div>
 

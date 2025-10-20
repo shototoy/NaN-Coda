@@ -5,21 +5,45 @@ import Toast from '../components/Toast'
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', company: '', message: '' })
   const [toast, setToast] = useState({ visible: false, message: '', type: 'info' })
+  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (!form.name || !form.email || !form.message) {
       setToast({ visible: true, message: 'Please fill in all required fields', type: 'error' })
       return
     }
-    setToast({ visible: true, message: 'Message sent successfully!', type: 'success' })
-    setForm({ name: '', email: '', company: '', message: '' })
+
+    setLoading(true)
+    const formData = new FormData()
+    formData.append('name', form.name)
+    formData.append('email', form.email)
+    formData.append('company', form.company)
+    formData.append('message', form.message)
+
+    try {
+      const response = await fetch('submit_form.php', {
+        method: 'POST',
+        body: formData
+      })
+      
+      if (response.ok) {
+        setToast({ visible: true, message: 'Message sent successfully!', type: 'success' })
+        setForm({ name: '', email: '', company: '', message: '' })
+      } else {
+        setToast({ visible: true, message: 'Failed to send message', type: 'error' })
+      }
+    } catch (error) {
+      setToast({ visible: true, message: 'Failed to send message', type: 'error' })
+    } finally {
+      setLoading(false)
+    }
   }
 
   const contactInfo = [
-    { icon: Mail, label: 'Email', value: 'contact@nancoda.com' },
-    { icon: Phone, label: 'Phone', value: '+1 (555) 123-4567' },
-    { icon: MapPin, label: 'Location', value: 'Mandaluyong City, Metro Manila' }
+    { icon: Mail, label: 'Email', value: 'huliokuneho42@gmail.com' },
+    { icon: Phone, label: 'Phone', value: '09091587781' },
+    { icon: MapPin, label: 'Location', value: 'Isulan, Sultan Kudarat' }
   ]
 
   return (
@@ -37,7 +61,7 @@ export default function Contact() {
         <div className="bg-black border border-gray-800 rounded-2xl p-8">
           <h2 className="text-2xl font-bold text-white mb-8">Send us a message</h2>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-6">
             <div>
               <label className="block text-sm font-semibold text-gray-300 mb-2">Name *</label>
               <input
@@ -83,19 +107,20 @@ export default function Contact() {
             </div>
 
             <button
-              type="submit"
-              className="w-full bg-emerald-500 text-black font-bold py-3 rounded-lg hover:bg-emerald-600 flex items-center justify-center gap-2"
+              onClick={handleSubmit}
+              disabled={loading}
+              className="w-full bg-emerald-500 text-black font-bold py-3 rounded-lg hover:bg-emerald-600 disabled:bg-gray-700 flex items-center justify-center gap-2"
             >
-              Send Message
+              {loading ? 'Sending...' : 'Send Message'}
               <Send size={20} />
             </button>
-          </form>
+          </div>
         </div>
 
         <div>
           <h2 className="text-2xl font-bold text-white mb-8">Contact Information</h2>
 
-          <div className="space-y-4 mb-12">
+          <div className="space-y-4">
             {contactInfo.map((item, i) => {
               const Icon = item.icon
               return (
@@ -110,11 +135,6 @@ export default function Contact() {
                 </div>
               )
             })}
-          </div>
-
-          <div className="h-64 bg-gray-900 border border-gray-800 rounded-lg flex items-center justify-center flex-col gap-4">
-            <MapPin className="text-emerald-500" size={48} />
-            <p className="text-gray-500">Map view placeholder</p>
           </div>
         </div>
       </div>

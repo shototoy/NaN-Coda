@@ -35,7 +35,7 @@ export default function Products() {
     {
       id: 4,
       icon: Database,
-      name: 'Intracompany Salary System',
+      name: 'Internal Digital Payroll',
       description: 'Internal wallet and salary management platform similar to GCash. Employee payroll, fund transfers, expense tracking, and financial reporting.',
       features: ['Digital Payroll', 'Employee Transfers', 'Fund Management', 'Financial Reports'],
       image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800'
@@ -56,8 +56,8 @@ export default function Products() {
       render: () => (
         <div>
           <p className="text-sm text-gray-500 uppercase tracking-widest mb-2">New Release</p>
-          <h3 className="text-4xl font-bold text-emerald-500 mb-4">Data Analytics 2.0</h3>
-          <p className="text-gray-300">Enhanced AI capabilities and real-time data processing</p>
+          <h3 className="text-4xl font-bold text-emerald-500 mb-4">Internal Digital Payroll</h3>
+          <p className="text-gray-300">Advanced employee salary management and fund transfer capabilities</p>
         </div>
       )
     }
