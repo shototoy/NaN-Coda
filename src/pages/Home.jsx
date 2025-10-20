@@ -49,13 +49,17 @@ export default function Home() {
 
   return (
     <main className="bg-black">
-      <div className="min-h-screen flex flex-col items-center justify-center px-6 py-20">
-        <div className="inline-block px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full mb-8">
+      <div className="min-h-screen flex flex-col items-center justify-center">
+
+          <img src="/favicon.svg" alt="NaN Coda" className="w-64 h-64" />
+
+
+        <div className="inline-block px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
           <p className="text-xs text-emerald-500 font-semibold">Building the future of enterprise software</p>
         </div>
 
-        <h1 className="text-6xl md:text-7xl font-black text-white text-center mb-4">NaN Coda</h1>
-        <h2 className="text-4xl md:text-5xl font-bold text-emerald-500 text-center mb-8">Precision. Reliability. Excellence.</h2>
+        <h1 className="text-5xl md:text-7xl font-black text-white text-center mb-4">NaN Coda</h1>
+        <h2 className="text-2xl md:text-5xl font-bold text-emerald-500 text-center mb-8">Precision. Reliability. Excellence.</h2>
 
         <p className="text-xl text-gray-400 text-center max-w-2xl mb-12">
           Transforming visions into enterprise-grade digital solutions that scale
@@ -71,9 +75,6 @@ export default function Home() {
           </a>
         </div>
 
-        <div className="flex flex-col items-center">
-          <div className="w-0.5 h-16 bg-emerald-500" />
-        </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-3 gap-6">
