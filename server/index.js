@@ -12,7 +12,7 @@ const app = express()
 const rootDir = path.resolve(__dirname, '..')
 const dataDir = path.join(rootDir, 'data')
 const messagesFile = path.join(dataDir, 'messages.json')
-const distDir = path.join(rootDir, 'dist')
+const staticDir = path.join(rootDir, 'public')
 const sessionCookieName = 'nan_coda_admin'
 const sessionTtlMs = 1000 * 60 * 60 * 8
 const runtimeMode =
@@ -459,17 +459,17 @@ app.delete(
 
 async function registerFrontend() {
   if (runtimeMode === 'production') {
-    if (!fs.existsSync(distDir)) {
+    if (!fs.existsSync(staticDir)) {
       throw new Error('Build output not found. Run "npm run build" before "npm start".')
     }
 
-    app.use(express.static(distDir))
+    app.use(express.static(staticDir))
     app.use((req, res, next) => {
       if (req.path.startsWith('/api')) {
         return next()
       }
 
-      return res.sendFile(path.join(distDir, 'index.html'))
+      return res.sendFile(path.join(staticDir, 'index.html'))
     })
 
     return
