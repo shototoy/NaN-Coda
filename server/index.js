@@ -339,11 +339,11 @@ function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
 
-app.get('/api/health', (req, res) => {
+app.get(['/api/health', '/health'], (req, res) => {
   res.json({ ok: true })
 })
 
-app.get('/api/auth/session', requireConfiguredServer, (req, res) => {
+app.get(['/api/auth/session', '/auth/session'], requireConfiguredServer, (req, res) => {
   const session = getSessionFromRequest(req)
 
   if (!session) {
@@ -356,7 +356,7 @@ app.get('/api/auth/session', requireConfiguredServer, (req, res) => {
   })
 })
 
-app.post('/api/auth/login', requireConfiguredServer, async (req, res) => {
+app.post(['/api/auth/login', '/auth/login'], requireConfiguredServer, async (req, res) => {
   const { adminUsername, adminPassword } = getEnvConfig()
   const username = normalizeField(req.body?.username, 120)
   const password = String(req.body?.password || '')
@@ -377,12 +377,12 @@ app.post('/api/auth/login', requireConfiguredServer, async (req, res) => {
   })
 })
 
-app.post('/api/auth/logout', (req, res) => {
+app.post(['/api/auth/logout', '/auth/logout'], (req, res) => {
   clearSessionCookie(res)
   res.status(204).end()
 })
 
-app.post('/api/contact', async (req, res) => {
+app.post(['/api/contact', '/contact'], async (req, res) => {
   const message = {
     id: crypto.randomUUID(),
     name: normalizeField(req.body?.name, 120),
@@ -410,7 +410,11 @@ app.post('/api/contact', async (req, res) => {
   return res.status(201).json({ message: 'Message sent successfully.' })
 })
 
-app.get('/api/admin/messages', requireConfiguredServer, requireAuth, async (req, res) => {
+app.get(
+  ['/api/admin/messages', '/admin/messages'],
+  requireConfiguredServer,
+  requireAuth,
+  async (req, res) => {
   try {
     const messages = await readMessages()
     const storage = getMessageStorageInfo()
@@ -427,26 +431,31 @@ app.get('/api/admin/messages', requireConfiguredServer, requireAuth, async (req,
   }
 })
 
-app.delete('/api/admin/messages/:messageId', requireConfiguredServer, requireAuth, async (req, res) => {
-  const messageId = normalizeField(req.params?.messageId, 120)
+app.delete(
+  ['/api/admin/messages/:messageId', '/admin/messages/:messageId'],
+  requireConfiguredServer,
+  requireAuth,
+  async (req, res) => {
+    const messageId = normalizeField(req.params?.messageId, 120)
 
-  if (!messageId) {
-    return res.status(400).json({ message: 'Message ID is required.' })
-  }
-
-  try {
-    const deleted = await deleteMessage(messageId)
-
-    if (!deleted) {
-      return res.status(404).json({ message: 'Message not found.' })
+    if (!messageId) {
+      return res.status(400).json({ message: 'Message ID is required.' })
     }
 
-    return res.status(204).end()
-  } catch (error) {
-    console.error('Failed to delete message', error)
-    return res.status(500).json({ message: 'Failed to delete message.' })
+    try {
+      const deleted = await deleteMessage(messageId)
+
+      if (!deleted) {
+        return res.status(404).json({ message: 'Message not found.' })
+      }
+
+      return res.status(204).end()
+    } catch (error) {
+      console.error('Failed to delete message', error)
+      return res.status(500).json({ message: 'Failed to delete message.' })
+    }
   }
-})
+)
 
 async function registerFrontend() {
   if (runtimeMode === 'production') {
