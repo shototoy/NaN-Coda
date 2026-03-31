@@ -75,10 +75,10 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="order-1 flex justify-center lg:order-2 lg:justify-end">
+        <div className="order-1 flex justify-center lg:order-2 lg:min-h-[26rem] lg:items-center lg:justify-center">
           <HeroLogo
-            className="mb-2"
-            sizeClassName="h-44 w-44 md:h-52 md:w-52 lg:h-60 lg:w-60 xl:h-64 xl:w-64"
+            className="mx-auto"
+            sizeClassName="h-52 w-52 md:h-64 md:w-64 lg:h-[24rem] lg:w-[24rem] xl:h-[27rem] xl:w-[27rem]"
           />
         </div>
       </div>

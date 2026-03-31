@@ -66,7 +66,7 @@ export default function Login() {
                 type="text"
                 value={credentials.username}
                 onChange={(event) => setCredentials({ ...credentials, username: event.target.value })}
-                placeholder="Admin username"
+                placeholder="username"
                 className="w-full rounded-lg border border-gray-700 bg-gray-900 px-4 py-2.5 text-sm text-white placeholder-gray-600 focus:border-emerald-500 focus:outline-none"
               />
             </div>
@@ -77,7 +77,7 @@ export default function Login() {
                 type="password"
                 value={credentials.password}
                 onChange={(event) => setCredentials({ ...credentials, password: event.target.value })}
-                placeholder="Admin password"
+                placeholder="password"
                 className="w-full rounded-lg border border-gray-700 bg-gray-900 px-4 py-2.5 text-sm text-white placeholder-gray-600 focus:border-emerald-500 focus:outline-none"
               />
             </div>

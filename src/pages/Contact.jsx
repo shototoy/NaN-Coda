@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Mail, Phone, MapPin, Send } from 'lucide-react'
+import { Globe, Mail, Phone, MapPin, Send } from 'lucide-react'
 import Toast from '../components/Toast'
 import { apiRequest } from '../lib/api'
 
@@ -35,7 +35,14 @@ export default function Contact() {
   const contactInfo = [
     { icon: Mail, label: 'Email', value: 'huliokuneho42@gmail.com' },
     { icon: Phone, label: 'Phone', value: '09091587781' },
-    { icon: MapPin, label: 'Location', value: 'Isulan, Sultan Kudarat' }
+    { icon: MapPin, label: 'Location', value: 'Isulan, Sultan Kudarat' },
+    {
+      icon: Globe,
+      label: 'Facebook',
+      value: 'NaN Coda Software Solutions',
+      href: 'https://facebook.com/NaNcoda',
+      meta: 'facebook.com/NaNcoda'
+    }
   ]
 
   return (
@@ -138,7 +145,23 @@ export default function Contact() {
                     </div>
                     <div>
                       <p className="mb-0.5 text-xs text-gray-500">{item.label}</p>
-                      <p className="text-sm font-semibold text-white">{item.value}</p>
+                      {item.href ? (
+                        <a
+                          href={item.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="group block"
+                        >
+                          <p className="text-sm font-semibold text-white transition-colors group-hover:text-emerald-400">
+                            {item.value}
+                          </p>
+                          <p className="mt-1 text-xs text-emerald-500 transition-colors group-hover:text-emerald-400">
+                            {item.meta}
+                          </p>
+                        </a>
+                      ) : (
+                        <p className="text-sm font-semibold text-white">{item.value}</p>
+                      )}
                     </div>
                   </div>
                 )
