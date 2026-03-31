@@ -15,6 +15,7 @@ const messagesFile = path.join(dataDir, 'messages.json')
 const distDir = path.join(rootDir, 'dist')
 const sessionCookieName = 'nan_coda_admin'
 const sessionTtlMs = 1000 * 60 * 60 * 8
+const runtimeMode = process.argv[2] === 'start' ? 'production' : 'development'
 let writeQueue = Promise.resolve()
 
 app.use(express.json({ limit: '1mb' }))
@@ -25,8 +26,8 @@ function getEnvConfig() {
     adminUsername: process.env.ADMIN_USERNAME,
     adminPassword: process.env.ADMIN_PASSWORD,
     sessionSecret: process.env.SESSION_SECRET,
-    port: Number(process.env.PORT || 3001),
-    isProduction: process.env.NODE_ENV === 'production',
+    port: Number(process.env.PORT || 3000),
+    isProduction: runtimeMode === 'production',
   }
 }
 
@@ -248,21 +249,63 @@ app.get('/api/admin/messages', requireConfiguredServer, requireAuth, async (req,
   })
 })
 
-if (fs.existsSync(distDir)) {
-  app.use(express.static(distDir))
+async function registerFrontend() {
+  if (runtimeMode === 'production') {
+    if (!fs.existsSync(distDir)) {
+      throw new Error('Build output not found. Run "npm run build" before "npm start".')
+    }
 
-  app.use((req, res, next) => {
+    app.use(express.static(distDir))
+    app.use((req, res, next) => {
+      if (req.path.startsWith('/api')) {
+        return next()
+      }
+
+      return res.sendFile(path.join(distDir, 'index.html'))
+    })
+
+    return
+  }
+
+  const { createServer } = await import('vite')
+  const vite = await createServer({
+    server: {
+      middlewareMode: true,
+    },
+    appType: 'spa',
+  })
+
+  app.use(vite.middlewares)
+
+  app.use(async (req, res, next) => {
     if (req.path.startsWith('/api')) {
       return next()
     }
 
-    return res.sendFile(path.join(distDir, 'index.html'))
+    try {
+      const htmlPath = path.join(rootDir, 'index.html')
+      const template = await fsPromises.readFile(htmlPath, 'utf8')
+      const html = await vite.transformIndexHtml(req.originalUrl, template)
+      return res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
+    } catch (error) {
+      vite.ssrFixStacktrace(error)
+      return next(error)
+    }
   })
 }
 
-const { port } = getEnvConfig()
-
-app.listen(port, async () => {
+async function startServer() {
   await ensureMessagesFile()
-  console.log(`NaN Coda server listening on http://localhost:${port}`)
+  await registerFrontend()
+
+  const { port } = getEnvConfig()
+
+  app.listen(port, () => {
+    console.log(`NaN Coda ${runtimeMode} server listening on http://localhost:${port}`)
+  })
+}
+
+startServer().catch((error) => {
+  console.error(error)
+  process.exit(1)
 })
