@@ -6,6 +6,7 @@ import {
   Mail,
   MessageSquareText,
   RefreshCw,
+  Trash2,
 } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
@@ -28,6 +29,9 @@ export default function AdminDashboard() {
   const [messages, setMessages] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [storageLabel, setStorageLabel] = useState('Protected JSON')
+  const [storageDescription, setStorageDescription] = useState('Saved on the server and hidden behind admin auth.')
+  const [deletingId, setDeletingId] = useState('')
 
   const loadMessages = async () => {
     setLoading(true)
@@ -36,6 +40,8 @@ export default function AdminDashboard() {
     try {
       const data = await apiRequest('/api/admin/messages')
       setMessages(data?.messages || [])
+      setStorageLabel(data?.storageLabel || 'Protected JSON')
+      setStorageDescription(data?.storageDescription || 'Saved on the server and hidden behind admin auth.')
     } catch (requestError) {
       if (requestError.message === 'Unauthorized') {
         await logout()
@@ -56,6 +62,32 @@ export default function AdminDashboard() {
   const handleLogout = async () => {
     await logout()
     navigate('/login', { replace: true })
+  }
+
+  const handleDelete = async (messageId, senderName) => {
+    const confirmed = window.confirm(`Delete the message from ${senderName}?`)
+
+    if (!confirmed) {
+      return
+    }
+
+    setDeletingId(messageId)
+    setError('')
+
+    try {
+      await apiRequest(`/api/admin/messages/${messageId}`, { method: 'DELETE' })
+      setMessages((current) => current.filter((item) => item.id !== messageId))
+    } catch (requestError) {
+      if (requestError.message === 'Unauthorized') {
+        await logout()
+        navigate('/login', { replace: true })
+        return
+      }
+
+      setError(requestError.message || 'Failed to delete message.')
+    } finally {
+      setDeletingId('')
+    }
   }
 
   return (
@@ -97,8 +129,8 @@ export default function AdminDashboard() {
           </div>
           <div className="rounded-xl border border-gray-800 bg-black p-5">
             <p className="text-xs uppercase tracking-[0.3em] text-gray-500">Storage</p>
-            <p className="mt-3 text-lg font-bold text-white">Protected JSON</p>
-            <p className="mt-1 text-sm text-gray-400">Saved on the server and hidden behind admin auth.</p>
+            <p className="mt-3 text-lg font-bold text-white">{storageLabel}</p>
+            <p className="mt-1 text-sm text-gray-400">{storageDescription}</p>
           </div>
           <div className="rounded-xl border border-gray-800 bg-black p-5">
             <p className="text-xs uppercase tracking-[0.3em] text-gray-500">Status</p>
@@ -153,9 +185,20 @@ export default function AdminDashboard() {
                       </div>
                     </div>
 
-                    <span className="inline-flex rounded-full border border-emerald-500/15 bg-emerald-500/5 px-3 py-1 text-xs font-semibold text-emerald-400">
-                      {item.company || 'No company listed'}
-                    </span>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="inline-flex rounded-full border border-emerald-500/15 bg-emerald-500/5 px-3 py-1 text-xs font-semibold text-emerald-400">
+                        {item.company || 'No company listed'}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => handleDelete(item.id, item.name)}
+                        disabled={deletingId === item.id}
+                        className="inline-flex items-center gap-2 rounded-full border border-red-500/20 bg-red-500/10 px-3 py-1 text-xs font-semibold text-red-300 transition hover:border-red-500/40 hover:bg-red-500/15 disabled:cursor-not-allowed disabled:opacity-60"
+                      >
+                        <Trash2 size={14} />
+                        {deletingId === item.id ? 'Deleting...' : 'Delete'}
+                      </button>
+                    </div>
                   </div>
 
                   <p className="whitespace-pre-wrap text-sm leading-relaxed text-gray-300">{item.message}</p>
