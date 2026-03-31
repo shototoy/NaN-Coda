@@ -1,53 +1,20 @@
 import React, { useState } from 'react'
-import { Package, Server, Cloud, Database, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import Carousel from '../components/Carousel'
 import Lightbox from '../components/Lightbox'
+import { products } from '../data/products'
 
 export default function Products() {
   const [selectedImage, setSelectedImage] = useState(null)
-
-  const products = [
-    {
-      id: 1,
-      icon: Package,
-      name: 'Student Attendance System',
-      description: 'Smart attendance tracking with automated SMS notifications to parents. Real-time monitoring, absence alerts, and comprehensive reporting for schools.',
-      features: ['SMS Notifications', 'Real-time Tracking', 'Parent Alerts', 'Absence Reports'],
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800'
-    },
-    {
-      id: 2,
-      icon: Server,
-      name: 'Point of Sale System',
-      description: 'Complete POS solution for retail and restaurants. Inventory management, sales analytics, payment processing, and multi-location support.',
-      features: ['Payment Processing', 'Inventory Sync', 'Sales Analytics', 'Multi-Location'],
-      image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800'
-    },
-    {
-      id: 3,
-      icon: Cloud,
-      name: 'School Management System',
-      description: 'Comprehensive educational management platform. Student records, grading, class scheduling, parent communication, and administrative tools.',
-      features: ['Student Records', 'Grade Management', 'Schedule Planning', 'Parent Portal'],
-      image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800'
-    },
-    {
-      id: 4,
-      icon: Database,
-      name: 'Internal Digital Payroll',
-      description: 'Internal wallet and salary management platform similar to GCash. Employee payroll, fund transfers, expense tracking, and financial reporting.',
-      features: ['Digital Payroll', 'Employee Transfers', 'Fund Management', 'Financial Reports'],
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800'
-    }
-  ]
 
   const carouselSlides = [
     {
       render: () => (
         <div>
           <p className="mb-2 text-xs uppercase tracking-[0.3em] text-gray-500 md:text-sm">Featured Product</p>
-          <h3 className="mb-3 text-3xl font-bold text-emerald-500 md:text-4xl">Attendance System Pro</h3>
-          <p className="max-w-xl text-sm text-gray-300 md:text-base">Revolutionize workforce management with our flagship attendance solution</p>
+          <h3 className="mb-3 text-3xl font-bold text-emerald-500 md:text-4xl">School Information System</h3>
+          <p className="max-w-xl text-sm text-gray-300 md:text-base">Unify enrollment, attendance, academic records, and parent communication in one campus platform</p>
         </div>
       )
     },
@@ -55,8 +22,8 @@ export default function Products() {
       render: () => (
         <div>
           <p className="mb-2 text-xs uppercase tracking-[0.3em] text-gray-500 md:text-sm">New Release</p>
-          <h3 className="mb-3 text-3xl font-bold text-emerald-500 md:text-4xl">Internal Digital Payroll</h3>
-          <p className="max-w-xl text-sm text-gray-300 md:text-base">Advanced employee salary management and fund transfer capabilities</p>
+          <h3 className="mb-3 text-3xl font-bold text-emerald-500 md:text-4xl">PULSO</h3>
+          <p className="max-w-xl text-sm text-gray-300 md:text-base">Barangay-ready touch terminal intake, service request tracking, and attendance support</p>
         </div>
       )
     }
@@ -110,10 +77,13 @@ export default function Products() {
 
                 <div className="flex items-center justify-between border-t border-gray-800 pt-4">
                   <p className="text-lg font-bold text-emerald-500">Custom Pricing</p>
-                  <a href="/contact" className="flex items-center gap-2 text-sm font-semibold text-emerald-500 hover:text-emerald-400">
+                  <Link
+                    to={`/products/${product.slug}`}
+                    className="flex items-center gap-2 text-sm font-semibold text-emerald-500 hover:text-emerald-400"
+                  >
                     Learn More
                     <ArrowRight size={16} />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

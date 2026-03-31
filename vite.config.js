@@ -8,5 +8,19 @@ export default defineConfig({
   build: {
     outDir: 'public',
     emptyOutDir: true,
+    assetsInlineLimit: 0,
+    rollupOptions: {
+      output: {
+        assetFileNames: (assetInfo) => {
+          const originalName = assetInfo.name || ''
+
+          if (originalName.endsWith('.pdf')) {
+            return 'assets/brochure/[name][extname]'
+          }
+
+          return 'assets/[name]-[hash][extname]'
+        },
+      },
+    },
   },
 });

@@ -6,6 +6,7 @@ import ProtectedRoute from './components/ProtectedRoute'
 import Footer from './components/Footer'
 import Home from './pages/Home'
 import Products from './pages/Products'
+import ProductDetail from './pages/ProductDetail'
 import Contact from './pages/Contact'
 import Login from './pages/Login'
 import AdminDashboard from './pages/AdminDashboard'
@@ -21,6 +22,7 @@ function AppRoutes() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
+          <Route path="/products/:productSlug" element={<ProductDetail />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route
