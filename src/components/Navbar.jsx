@@ -14,10 +14,10 @@ export default function Navbar() {
 
   return (
     <nav className="bg-black border-b border-gray-800 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <h1 className="text-2xl font-black text-emerald-500">NaN Coda</h1>
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-5 py-3 md:px-6">
+        <h1 className="text-xl font-black text-emerald-500 md:text-2xl">NaN Coda</h1>
 
-        <div className="hidden md:flex gap-8">
+        <div className="hidden md:flex gap-6">
           {navItems.map((item) => (
             <a
               key={item.path}
@@ -33,7 +33,7 @@ export default function Navbar() {
 
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden text-white"
+          className="flex h-10 w-10 items-center justify-center text-white md:hidden"
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -45,7 +45,7 @@ export default function Navbar() {
             <a
               key={item.path}
               href={item.path}
-              className={`block px-6 py-4 border-b border-gray-800 ${
+              className={`block border-b border-gray-800 px-5 py-3.5 ${
                 location.pathname === item.path ? 'text-emerald-500' : 'text-gray-300'
               }`}
               onClick={() => setIsOpen(false)}

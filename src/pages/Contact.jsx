@@ -48,20 +48,22 @@ export default function Contact() {
 
   return (
     <main className="bg-black">
-      <div className="max-w-7xl mx-auto px-6 py-20 text-center">
-        <div className="inline-block px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full mb-8">
+      <div className="mx-auto max-w-4xl px-6 pb-8 pt-10 text-center md:pb-10 md:pt-12">
+        <div className="mb-4 inline-block rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-2">
           <p className="text-xs text-emerald-500 font-semibold">Get In Touch</p>
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Let's Build Something Great Together</h1>
-        <p className="text-xl text-gray-400">Have a project in mind? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+        <h1 className="mb-3 text-3xl font-bold text-white md:text-4xl">Let's Build Something Great Together</h1>
+        <p className="mx-auto max-w-2xl text-base text-gray-400 md:text-lg">
+          Have a project in mind? Send us a message and we&apos;ll get back to you as soon as possible.
+        </p>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 pb-20 grid md:grid-cols-2 gap-12">
-        <div className="bg-black border border-gray-800 rounded-2xl p-8">
-          <h2 className="text-2xl font-bold text-white mb-8">Send us a message</h2>
+      <div className="mx-auto grid max-w-7xl gap-6 px-6 pb-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
+        <div className="rounded-xl border border-gray-800 bg-black p-5 md:p-6">
+          <h2 className="mb-5 text-xl font-bold text-white md:text-2xl">Send us a message</h2>
 
-          <div className="space-y-6">
+          <div className="grid gap-4 md:grid-cols-2">
             <div>
               <label className="block text-sm font-semibold text-gray-300 mb-2">Name *</label>
               <input
@@ -69,7 +71,7 @@ export default function Contact() {
                 value={form.name}
                 onChange={(e) => setForm({...form, name: e.target.value})}
                 placeholder="Your name"
-                className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-emerald-500"
+                className="w-full rounded-lg border border-gray-700 bg-gray-900 px-4 py-2 text-sm text-white placeholder-gray-600 focus:border-emerald-500 focus:outline-none"
               />
             </div>
 
@@ -80,36 +82,36 @@ export default function Contact() {
                 value={form.email}
                 onChange={(e) => setForm({...form, email: e.target.value})}
                 placeholder="your.email@example.com"
-                className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-emerald-500"
+                className="w-full rounded-lg border border-gray-700 bg-gray-900 px-4 py-2 text-sm text-white placeholder-gray-600 focus:border-emerald-500 focus:outline-none"
               />
             </div>
 
-            <div>
+            <div className="md:col-span-2">
               <label className="block text-sm font-semibold text-gray-300 mb-2">Company</label>
               <input
                 type="text"
                 value={form.company}
                 onChange={(e) => setForm({...form, company: e.target.value})}
                 placeholder="Your company name"
-                className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-emerald-500"
+                className="w-full rounded-lg border border-gray-700 bg-gray-900 px-4 py-2 text-sm text-white placeholder-gray-600 focus:border-emerald-500 focus:outline-none"
               />
             </div>
 
-            <div>
+            <div className="md:col-span-2">
               <label className="block text-sm font-semibold text-gray-300 mb-2">Message *</label>
               <textarea
                 value={form.message}
                 onChange={(e) => setForm({...form, message: e.target.value})}
                 placeholder="Tell us about your project..."
-                rows="6"
-                className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-emerald-500"
+                rows="5"
+                className="w-full rounded-lg border border-gray-700 bg-gray-900 px-4 py-2 text-sm text-white placeholder-gray-600 focus:border-emerald-500 focus:outline-none"
               />
             </div>
 
             <button
               onClick={handleSubmit}
               disabled={loading}
-              className="w-full bg-emerald-500 text-black font-bold py-3 rounded-lg hover:bg-emerald-600 disabled:bg-gray-700 flex items-center justify-center gap-2"
+              className="flex w-full items-center justify-center gap-2 rounded-lg bg-emerald-500 py-3 font-bold text-black hover:bg-emerald-600 disabled:bg-gray-700 md:col-span-2"
             >
               {loading ? 'Sending...' : 'Send Message'}
               <Send size={20} />
@@ -117,24 +119,33 @@ export default function Contact() {
           </div>
         </div>
 
-        <div>
-          <h2 className="text-2xl font-bold text-white mb-8">Contact Information</h2>
+        <div className="self-start rounded-xl border border-gray-800 bg-black p-5 md:p-6">
+          <h2 className="mb-2 text-xl font-bold text-white md:text-2xl">Contact Information</h2>
+          <p className="mb-5 text-sm leading-relaxed text-gray-400">
+            Best for project inquiries, product discussions, and custom software requests.
+          </p>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             {contactInfo.map((item, i) => {
               const Icon = item.icon
               return (
-                <div key={i} className="flex items-center gap-4 bg-black border border-gray-800 rounded-lg p-6">
-                  <div className="w-12 h-12 bg-emerald-500/10 border border-emerald-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Icon className="text-emerald-500" size={24} />
+                <div key={i} className="flex items-center gap-3 rounded-lg border border-gray-800 bg-gray-950/60 p-4">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-emerald-500/20 bg-emerald-500/10">
+                    <Icon className="text-emerald-500" size={20} />
                   </div>
                   <div>
-                    <p className="text-xs text-gray-500 mb-1">{item.label}</p>
-                    <p className="font-semibold text-white">{item.value}</p>
+                    <p className="mb-1 text-xs text-gray-500">{item.label}</p>
+                    <p className="text-sm font-semibold text-white md:text-base">{item.value}</p>
                   </div>
                 </div>
               )
             })}
+          </div>
+
+          <div className="mt-4 rounded-lg border border-emerald-500/15 bg-emerald-500/5 px-4 py-3">
+            <p className="text-sm text-gray-300">
+              Typical reply time: <span className="font-semibold text-emerald-500">within 1 business day</span>
+            </p>
           </div>
         </div>
       </div>

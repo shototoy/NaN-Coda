@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Package, Server, Cloud, Database, ArrowRight } from 'lucide-react'
-import Card from '../components/Card'
 import Carousel from '../components/Carousel'
 import Lightbox from '../components/Lightbox'
 
@@ -46,18 +45,18 @@ export default function Products() {
     {
       render: () => (
         <div>
-          <p className="text-sm text-gray-500 uppercase tracking-widest mb-2">Featured Product</p>
-          <h3 className="text-4xl font-bold text-emerald-500 mb-4">Attendance System Pro</h3>
-          <p className="text-gray-300">Revolutionize workforce management with our flagship attendance solution</p>
+          <p className="mb-2 text-xs uppercase tracking-[0.3em] text-gray-500 md:text-sm">Featured Product</p>
+          <h3 className="mb-3 text-3xl font-bold text-emerald-500 md:text-4xl">Attendance System Pro</h3>
+          <p className="max-w-xl text-sm text-gray-300 md:text-base">Revolutionize workforce management with our flagship attendance solution</p>
         </div>
       )
     },
     {
       render: () => (
         <div>
-          <p className="text-sm text-gray-500 uppercase tracking-widest mb-2">New Release</p>
-          <h3 className="text-4xl font-bold text-emerald-500 mb-4">Internal Digital Payroll</h3>
-          <p className="text-gray-300">Advanced employee salary management and fund transfer capabilities</p>
+          <p className="mb-2 text-xs uppercase tracking-[0.3em] text-gray-500 md:text-sm">New Release</p>
+          <h3 className="mb-3 text-3xl font-bold text-emerald-500 md:text-4xl">Internal Digital Payroll</h3>
+          <p className="max-w-xl text-sm text-gray-300 md:text-base">Advanced employee salary management and fund transfer capabilities</p>
         </div>
       )
     }
@@ -65,53 +64,53 @@ export default function Products() {
 
   return (
     <main className="bg-black">
-      <div className="max-w-7xl mx-auto px-6 py-20 text-center">
-        <div className="inline-block px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full mb-8">
+      <div className="mx-auto max-w-5xl px-6 pb-12 pt-16 text-center md:pb-14 md:pt-20">
+        <div className="mb-6 inline-block rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-2">
           <p className="text-xs text-emerald-500 font-semibold">Our Solutions</p>
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Enterprise Products Built for Performance</h1>
-        <p className="text-xl text-gray-400">Comprehensive software solutions designed to scale with your business needs</p>
+        <h1 className="mb-3 text-3xl font-bold text-white md:text-4xl lg:text-5xl">Enterprise Products Built for Performance</h1>
+        <p className="text-base text-gray-400 md:text-lg">Comprehensive software solutions designed to scale with your business needs</p>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 mb-20">
+      <div className="mx-auto mb-14 max-w-7xl px-6 md:mb-16">
         <Carousel slides={carouselSlides} />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 pb-20 space-y-12">
+      <div className="mx-auto grid max-w-7xl gap-6 px-6 pb-16 md:grid-cols-2 md:pb-[4.5rem]">
         {products.map((product) => {
           const Icon = product.icon
           return (
-            <div key={product.id} className="bg-black border border-gray-800 rounded-2xl overflow-hidden hover:border-gray-700 transition-colors">
+            <div key={product.id} className="overflow-hidden rounded-xl border border-gray-800 bg-black transition-colors hover:border-gray-700">
               <button
                 onClick={() => setSelectedImage(product.image)}
-                className="w-full h-48 md:h-56 bg-gray-900 flex items-center justify-center hover:bg-gray-800"
+                className="flex h-40 w-full items-center justify-center bg-gray-900 hover:bg-gray-800 md:h-44"
               >
                 <Icon className="text-emerald-500" size={48} />
               </button>
 
-              <div className="p-8">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-10 h-10 bg-emerald-500/10 border border-emerald-500/20 rounded-lg flex items-center justify-center">
+              <div className="p-6">
+                <div className="mb-3 flex items-start gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-emerald-500/20 bg-emerald-500/10">
                     <Icon className="text-emerald-500" size={24} />
                   </div>
-                  <h2 className="text-3xl font-bold text-white">{product.name}</h2>
+                  <h2 className="text-2xl font-bold text-white">{product.name}</h2>
                 </div>
 
-                <p className="text-gray-400 mb-6 leading-relaxed">{product.description}</p>
+                <p className="mb-5 text-sm leading-relaxed text-gray-400 md:text-base">{product.description}</p>
 
-                <div className="space-y-2 mb-8">
+                <div className="mb-6 space-y-2">
                   {product.features.map((feature, i) => (
                     <div key={i} className="flex items-center gap-3">
                       <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                      <p className="text-gray-300">{feature}</p>
+                      <p className="text-sm text-gray-300">{feature}</p>
                     </div>
                   ))}
                 </div>
 
-                <div className="border-t border-gray-800 pt-6 flex items-center justify-between">
-                  <p className="text-xl font-bold text-emerald-500">Custom Pricing</p>
-                  <a href="/contact" className="flex items-center gap-2 text-emerald-500 hover:text-emerald-400 font-semibold">
+                <div className="flex items-center justify-between border-t border-gray-800 pt-4">
+                  <p className="text-lg font-bold text-emerald-500">Custom Pricing</p>
+                  <a href="/contact" className="flex items-center gap-2 text-sm font-semibold text-emerald-500 hover:text-emerald-400">
                     Learn More
                     <ArrowRight size={16} />
                   </a>
@@ -122,12 +121,12 @@ export default function Products() {
         })}
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-20 text-center">
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Need a Custom Solution?</h2>
-        <p className="text-xl text-gray-400 mb-12">We build tailored software solutions to match your unique requirements</p>
-        <a href="/contact" className="inline-flex items-center gap-3 bg-emerald-500 text-black font-bold py-4 px-10 rounded-lg hover:bg-emerald-600">
+      <div className="mx-auto max-w-7xl px-6 py-16 text-center md:py-[4.5rem]">
+        <h2 className="mb-3 text-3xl font-bold text-white md:text-4xl">Need a Custom Solution?</h2>
+        <p className="mb-8 text-base text-gray-400 md:text-lg">We build tailored software solutions to match your unique requirements</p>
+        <a href="/contact" className="inline-flex items-center gap-3 rounded-lg bg-emerald-500 px-8 py-3.5 font-bold text-black hover:bg-emerald-600">
           Contact Us
-          <ArrowRight size={24} />
+          <ArrowRight size={20} />
         </a>
       </div>
 

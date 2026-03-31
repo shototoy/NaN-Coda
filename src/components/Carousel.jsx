@@ -14,26 +14,26 @@ export default function Carousel({ slides, autoPlay = true, interval = 4000 }) {
   }, [current, autoPlay, interval])
 
   return (
-    <div className="relative h-80 bg-black/50 border border-emerald-500/20 rounded-2xl overflow-hidden">
-      <div className="relative h-full flex items-center px-8">
+    <div className="relative h-64 overflow-hidden rounded-xl border border-emerald-500/20 bg-black/50 md:h-72">
+      <div className="relative flex h-full items-center px-6 md:px-8">
         {slides.map((slide, i) => (
           <div
             key={i}
-            className={`absolute inset-8 transition-opacity duration-500 ${
+            className={`absolute inset-6 transition-opacity duration-500 md:inset-8 ${
               i === current ? 'opacity-100' : 'opacity-0'
             }`}
           >
             {slide.render ? slide.render() : (
               <>
-                <h3 className="text-4xl font-bold text-emerald-500 mb-4">{slide.title}</h3>
-                <p className="text-gray-300">{slide.content}</p>
+                <h3 className="mb-3 text-3xl font-bold text-emerald-500 md:text-4xl">{slide.title}</h3>
+                <p className="text-sm text-gray-300 md:text-base">{slide.content}</p>
               </>
             )}
           </div>
         ))}
       </div>
 
-      <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
+      <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-2">
         {slides.map((_, i) => (
           <button
             key={i}
@@ -48,14 +48,14 @@ export default function Carousel({ slides, autoPlay = true, interval = 4000 }) {
 
       <button
         onClick={prev}
-        className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/80 border border-emerald-500/30 rounded-lg flex items-center justify-center hover:bg-black/90"
+        className="absolute left-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-lg border border-emerald-500/30 bg-black/80 hover:bg-black/90 md:left-4 md:h-10 md:w-10"
       >
         <ChevronLeft className="text-emerald-500" size={24} />
       </button>
 
       <button
         onClick={next}
-        className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/80 border border-emerald-500/30 rounded-lg flex items-center justify-center hover:bg-black/90"
+        className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-lg border border-emerald-500/30 bg-black/80 hover:bg-black/90 md:right-4 md:h-10 md:w-10"
       >
         <ChevronRight className="text-emerald-500" size={24} />
       </button>
