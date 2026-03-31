@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Mail, Phone, MapPin, Send } from 'lucide-react'
 import Toast from '../components/Toast'
+import { apiRequest } from '../lib/api'
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', company: '', message: '' })
@@ -15,26 +16,17 @@ export default function Contact() {
     }
 
     setLoading(true)
-    const formData = new FormData()
-    formData.append('name', form.name)
-    formData.append('email', form.email)
-    formData.append('company', form.company)
-    formData.append('message', form.message)
 
     try {
-      const response = await fetch('submit_form.php', {
+      await apiRequest('/api/contact', {
         method: 'POST',
-        body: formData
+        body: JSON.stringify(form)
       })
-      
-      if (response.ok) {
-        setToast({ visible: true, message: 'Message sent successfully!', type: 'success' })
-        setForm({ name: '', email: '', company: '', message: '' })
-      } else {
-        setToast({ visible: true, message: 'Failed to send message', type: 'error' })
-      }
+
+      setToast({ visible: true, message: 'Message sent successfully!', type: 'success' })
+      setForm({ name: '', email: '', company: '', message: '' })
     } catch (error) {
-      setToast({ visible: true, message: 'Failed to send message', type: 'error' })
+      setToast({ visible: true, message: error.message || 'Failed to send message', type: 'error' })
     } finally {
       setLoading(false)
     }
@@ -73,7 +65,7 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div className="grid gap-3.5 md:grid-cols-2">
+              <form className="grid gap-3.5 md:grid-cols-2" onSubmit={handleSubmit}>
                 <div>
                   <label className="mb-1.5 block text-sm font-semibold text-gray-300">Name *</label>
                   <input
@@ -119,14 +111,14 @@ export default function Contact() {
                 </div>
 
                 <button
-                  onClick={handleSubmit}
+                  type="submit"
                   disabled={loading}
                   className="flex w-full items-center justify-center gap-2 rounded-lg bg-emerald-500 py-2.5 font-bold text-black hover:bg-emerald-600 disabled:bg-gray-700 md:col-span-2 md:w-auto md:px-6"
                 >
                   {loading ? 'Sending...' : 'Send Message'}
                   <Send size={18} />
                 </button>
-              </div>
+              </form>
             </div>
           </div>
 
