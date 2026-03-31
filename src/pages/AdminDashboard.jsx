@@ -75,7 +75,7 @@ export default function AdminDashboard() {
     setError('')
 
     try {
-      await apiRequest(`/api/admin/messages/${messageId}`, { method: 'DELETE' })
+      await apiRequest(`/api/admin/messages?id=${encodeURIComponent(messageId)}`, { method: 'DELETE' })
       setMessages((current) => current.filter((item) => item.id !== messageId))
     } catch (requestError) {
       if (requestError.message === 'Unauthorized') {

@@ -432,6 +432,32 @@ app.get(
 })
 
 app.delete(
+  ['/api/admin/messages', '/admin/messages'],
+  requireConfiguredServer,
+  requireAuth,
+  async (req, res) => {
+    const messageId = normalizeField(req.query?.id, 120)
+
+    if (!messageId) {
+      return res.status(400).json({ message: 'Message ID is required.' })
+    }
+
+    try {
+      const deleted = await deleteMessage(messageId)
+
+      if (!deleted) {
+        return res.status(404).json({ message: 'Message not found.' })
+      }
+
+      return res.status(204).end()
+    } catch (error) {
+      console.error('Failed to delete message', error)
+      return res.status(500).json({ message: 'Failed to delete message.' })
+    }
+  }
+)
+
+app.delete(
   ['/api/admin/messages/:messageId', '/admin/messages/:messageId'],
   requireConfiguredServer,
   requireAuth,
