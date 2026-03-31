@@ -1,0 +1,68 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="256" height="256" rx="52" fill="#020504"/>
+  <circle cx="128" cy="128" r="88" fill="#0B1B16"/>
+  <circle cx="128" cy="128" r="84" stroke="#143B32" stroke-width="2"/>
+  <path
+    d="M128 48L208 128L128 208L48 128Z"
+    fill="#081310"
+    stroke="url(#strokeGradient)"
+    stroke-width="10"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M128 74L182 128L128 182L74 128Z"
+    fill="#03100C"
+    stroke="#18D6A0"
+    stroke-opacity="0.35"
+    stroke-width="2"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M101 160V95L155 157V94"
+    fill="none"
+    stroke="url(#strokeGradient)"
+    stroke-width="14"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M82 101L62 128L82 155"
+    fill="none"
+    stroke="#73F1C9"
+    stroke-width="7"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    opacity="0.95"
+  />
+  <path
+    d="M174 101L194 128L174 155"
+    fill="none"
+    stroke="#73F1C9"
+    stroke-width="7"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    opacity="0.95"
+  />
+  <g>
+    <circle cx="128" cy="48" r="14" fill="#03110D"/>
+    <circle cx="208" cy="128" r="14" fill="#03110D"/>
+    <circle cx="128" cy="208" r="14" fill="#03110D"/>
+    <circle cx="48" cy="128" r="14" fill="#03110D"/>
+    <circle cx="128" cy="48" r="10" fill="url(#nodeGradient)"/>
+    <circle cx="208" cy="128" r="10" fill="url(#nodeGradient)"/>
+    <circle cx="128" cy="208" r="10" fill="url(#nodeGradient)"/>
+    <circle cx="48" cy="128" r="10" fill="url(#nodeGradient)"/>
+  </g>
+  <defs>
+    <linearGradient id="strokeGradient" x1="48" y1="48" x2="208" y2="208" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#7CF5CB"/>
+      <stop offset="55%" stop-color="#22D3A6"/>
+      <stop offset="100%" stop-color="#139E78"/>
+    </linearGradient>
+    <linearGradient id="nodeGradient" x1="84" y1="80" x2="172" y2="176" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#D9FFF3"/>
+      <stop offset="45%" stop-color="#57F0C0"/>
+      <stop offset="100%" stop-color="#14B885"/>
+    </linearGradient>
+  </defs>
+</svg>
