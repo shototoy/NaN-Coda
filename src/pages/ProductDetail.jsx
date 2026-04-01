@@ -1,11 +1,56 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { ArrowLeft, ArrowRight, FileDown } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
+import Lightbox from '../components/Lightbox'
 import { getProductBySlug } from '../data/products'
+import { apiRequest } from '../lib/api'
 
 export default function ProductDetail() {
   const { productSlug } = useParams()
   const product = getProductBySlug(productSlug)
+  const brochureHref = product ? `${product.brochure}?v=${Date.now()}` : ''
+  const [galleryImages, setGalleryImages] = useState([])
+  const [selectedImage, setSelectedImage] = useState(null)
+  const [isLoadingGallery, setIsLoadingGallery] = useState(Boolean(product))
+
+  useEffect(() => {
+    let isMounted = true
+
+    async function loadGallery() {
+      if (!product) {
+        setGalleryImages([])
+        setSelectedImage(null)
+        setIsLoadingGallery(false)
+        return
+      }
+
+      setIsLoadingGallery(true)
+      setSelectedImage(null)
+
+      try {
+        const response = await apiRequest(`/api/product-photos?slug=${encodeURIComponent(product.slug)}`)
+        const nextImages = Array.isArray(response?.photos) ? response.photos : []
+
+        if (isMounted) {
+          setGalleryImages(nextImages.length ? nextImages : [product.bannerImage || product.image].filter(Boolean))
+        }
+      } catch (error) {
+        if (isMounted) {
+          setGalleryImages([product.bannerImage || product.image].filter(Boolean))
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoadingGallery(false)
+        }
+      }
+    }
+
+    loadGallery()
+
+    return () => {
+      isMounted = false
+    }
+  }, [product])
 
   if (!product) {
     return (
@@ -78,7 +123,7 @@ export default function ProductDetail() {
                 <ArrowRight size={18} />
               </Link>
               <a
-                href={product.brochure}
+                href={brochureHref}
                 download={`${product.name}.pdf`}
                 className="inline-flex items-center justify-center gap-2 rounded-lg border border-emerald-500/30 bg-emerald-500/8 px-6 py-3 font-semibold text-emerald-400 hover:border-emerald-500/50 hover:bg-emerald-500/12"
               >
@@ -91,6 +136,49 @@ export default function ProductDetail() {
               >
                 View Other Products
               </Link>
+            </div>
+
+            <div className="mt-8 rounded-2xl border border-gray-800 bg-black/40 p-4 md:p-5">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.25em] text-emerald-500">Photo Gallery</p>
+                  <h2 className="mt-2 text-xl font-bold text-white md:text-2xl">PNG photos from this product folder</h2>
+                </div>
+                <p className="text-sm text-gray-500">{galleryImages.length} image{galleryImages.length === 1 ? '' : 's'}</p>
+              </div>
+
+              <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {isLoadingGallery ? (
+                  <div className="rounded-xl border border-dashed border-gray-700 bg-gray-950/60 px-4 py-10 text-center text-sm text-gray-500 sm:col-span-2 lg:col-span-3">
+                    Loading gallery...
+                  </div>
+                ) : galleryImages.length ? (
+                  galleryImages.map((imageUrl, index) => (
+                    <button
+                      key={imageUrl}
+                      type="button"
+                      onClick={() => setSelectedImage(imageUrl)}
+                      className="group overflow-hidden rounded-xl border border-gray-800 bg-gray-950/70 text-left transition hover:border-emerald-500/40"
+                    >
+                      <div className="aspect-[4/3] overflow-hidden">
+                        <img
+                          src={imageUrl}
+                          alt={`${product.name} gallery ${index + 1}`}
+                          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                        />
+                      </div>
+                      <div className="px-4 py-3">
+                        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-emerald-400">Photo {index + 1}</p>
+                        <p className="mt-1 text-sm text-gray-400">{imageUrl.split('/').pop()}</p>
+                      </div>
+                    </button>
+                  ))
+                ) : (
+                  <div className="rounded-xl border border-dashed border-gray-700 bg-gray-950/60 px-4 py-10 text-center text-sm text-gray-500 sm:col-span-2 lg:col-span-3">
+                    No PNG photos found in {product.photoDirectory}.
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
@@ -202,6 +290,8 @@ export default function ProductDetail() {
           </div>
         </section>
       </div>
+
+      <Lightbox visible={!!selectedImage} imageUri={selectedImage} onClose={() => setSelectedImage(null)} />
     </main>
   )
 }

@@ -50,10 +50,20 @@ export default function Products() {
           return (
             <div key={product.id} className="overflow-hidden rounded-xl border border-gray-800 bg-black transition-colors hover:border-gray-700">
               <button
-                onClick={() => setSelectedImage(product.image)}
-                className="flex h-40 w-full items-center justify-center bg-gray-900 hover:bg-gray-800 md:h-44"
+                type="button"
+                onClick={() => setSelectedImage(product.bannerImage || product.image)}
+                className="group relative block h-40 w-full overflow-hidden bg-gray-900 md:h-44"
               >
-                <Icon className="text-emerald-500" size={48} />
+                <img
+                  src={product.bannerImage || product.image}
+                  alt={`${product.name} banner`}
+                  className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-4 text-left">
+                  <p className="text-xs font-semibold uppercase tracking-[0.25em] text-emerald-400">{product.category}</p>
+                  <p className="mt-1 text-lg font-bold text-white">{product.name}</p>
+                </div>
               </button>
 
               <div className="p-6">

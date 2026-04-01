@@ -13,6 +13,10 @@ const rootDir = path.resolve(__dirname, '..')
 const dataDir = path.join(rootDir, 'data')
 const messagesFile = path.join(dataDir, 'messages.json')
 const staticDir = path.join(rootDir, 'public')
+const photoRoots = [
+  path.join(rootDir, 'public', 'assets', 'photos'),
+  path.join(rootDir, 'dist', 'assets', 'photos'),
+]
 const sessionCookieName = 'nan_coda_admin'
 const sessionTtlMs = 1000 * 60 * 60 * 8
 const runtimeMode =
@@ -331,6 +335,63 @@ async function deleteMessage(messageId) {
   return deleteLocalMessage(messageId)
 }
 
+function normalizeProductSlug(value) {
+  const slug = String(value || '').trim().toLowerCase()
+  return /^[a-z0-9-]+$/.test(slug) ? slug : ''
+}
+
+async function findProductPhotoDirectory(productSlug) {
+  for (const photoRoot of photoRoots) {
+    const candidate = path.join(photoRoot, productSlug)
+
+    try {
+      const stats = await fsPromises.stat(candidate)
+
+      if (stats.isDirectory()) {
+        return candidate
+      }
+    } catch (error) {
+      continue
+    }
+  }
+
+  return null
+}
+
+function sortPhotoNames(left, right) {
+  if (left === 'banner.png') {
+    return -1
+  }
+
+  if (right === 'banner.png') {
+    return 1
+  }
+
+  return left.localeCompare(right, undefined, { numeric: true, sensitivity: 'base' })
+}
+
+async function listProductPhotoUrls(slugValue) {
+  const productSlug = normalizeProductSlug(slugValue)
+
+  if (!productSlug) {
+    return []
+  }
+
+  const photoDirectory = await findProductPhotoDirectory(productSlug)
+
+  if (!photoDirectory) {
+    return []
+  }
+
+  const directoryEntries = await fsPromises.readdir(photoDirectory, { withFileTypes: true })
+
+  return directoryEntries
+    .filter((entry) => entry.isFile() && entry.name.toLowerCase().endsWith('.png'))
+    .map((entry) => entry.name)
+    .sort(sortPhotoNames)
+    .map((filename) => `/assets/photos/${productSlug}/${filename}`)
+}
+
 function normalizeField(value, maxLength) {
   return String(value || '').trim().slice(0, maxLength)
 }
@@ -341,6 +402,16 @@ function isValidEmail(email) {
 
 app.get(['/api/health', '/health'], (req, res) => {
   res.json({ ok: true })
+})
+
+app.get(['/api/product-photos', '/product-photos'], async (req, res) => {
+  try {
+    const photos = await listProductPhotoUrls(req.query?.slug)
+    return res.json({ photos })
+  } catch (error) {
+    console.error('Failed to list product photos', error)
+    return res.status(500).json({ message: 'Failed to list product photos.' })
+  }
 })
 
 app.get(['/api/auth/session', '/auth/session'], requireConfiguredServer, (req, res) => {

@@ -1,9 +1,4 @@
 import { Briefcase, Building2, Cloud, Database, Server } from 'lucide-react'
-import pointOfSaleBrochure from '../assets/brochure/point-of-sale-system.pdf'
-import schoolInformationBrochure from '../assets/brochure/school-information-system.pdf'
-import internalDigitalPayrollBrochure from '../assets/brochure/internal-digital-payroll.pdf'
-import hrInformationBrochure from '../assets/brochure/hr-information-system.pdf'
-import pulsoBrochure from '../assets/brochure/pulso.pdf'
 
 export const products = [
   {
@@ -15,8 +10,10 @@ export const products = [
     headline: 'Run transactions, inventory, and reporting from one dependable sales platform.',
     description:
       'Complete POS solution for retail and restaurants. Inventory management, sales analytics, payment processing, and multi-location support.',
-    image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800',
-    brochure: pointOfSaleBrochure,
+    image: '/assets/photos/point-of-sale-system/banner.png',
+    bannerImage: '/assets/photos/point-of-sale-system/banner.png',
+    photoDirectory: '/assets/photos/point-of-sale-system',
+    brochure: '/assets/brochure/point-of-sale-system.pdf',
     features: ['Payment Processing', 'Inventory Sync', 'Sales Analytics', 'Multi-Location'],
     highlights: [
       'Fast checkout flow for front-desk and cashier teams',
@@ -49,8 +46,10 @@ export const products = [
     headline: 'Run enrollment, student records, attendance, grading, and parent communication from one campus platform.',
     description:
       'Comprehensive school information platform for student records, attendance, grading, scheduling, admissions, and parent communication in one connected system.',
-    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800',
-    brochure: schoolInformationBrochure,
+    image: '/assets/photos/school-information-system/banner.png',
+    bannerImage: '/assets/photos/school-information-system/banner.png',
+    photoDirectory: '/assets/photos/school-information-system',
+    brochure: '/assets/brochure/school-information-system.pdf',
     features: ['Student Records', 'Attendance Tracking', 'Grade Management', 'Parent Portal'],
     highlights: [
       'Centralized student and academic data',
@@ -84,8 +83,10 @@ export const products = [
     headline: 'Distribute salary, manage internal funds, and monitor payroll operations securely.',
     description:
       'Internal wallet and salary management platform similar to GCash. Employee payroll, fund transfers, expense tracking, and financial reporting.',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800',
-    brochure: internalDigitalPayrollBrochure,
+    image: '/assets/photos/internal-digital-payroll/banner.png',
+    bannerImage: '/assets/photos/internal-digital-payroll/banner.png',
+    photoDirectory: '/assets/photos/internal-digital-payroll',
+    brochure: '/assets/brochure/internal-digital-payroll.pdf',
     features: ['Digital Payroll', 'Employee Transfers', 'Fund Management', 'Financial Reports'],
     highlights: [
       'Digital salary distribution with traceable fund movement',
@@ -118,8 +119,10 @@ export const products = [
     headline: 'Centralize employee records, leave workflows, timekeeping, and HR reporting in one platform.',
     description:
       'Comprehensive HR information system for employee records, onboarding, leave requests, attendance, organizational structure, and personnel analytics.',
-    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800',
-    brochure: hrInformationBrochure,
+    image: '/assets/photos/hr-information-system/banner.png',
+    bannerImage: '/assets/photos/hr-information-system/banner.png',
+    photoDirectory: '/assets/photos/hr-information-system',
+    brochure: '/assets/brochure/hr-information-system.pdf',
     features: ['Employee Records', 'Leave Management', 'Timekeeping', 'HR Reports'],
     highlights: [
       'Single source of truth for employee information and organizational structure',
@@ -152,8 +155,10 @@ export const products = [
     headline: 'A barangay service request touch terminal and attendance system built for community-facing operations.',
     description:
       'PULSO streamlines barangay service requests, public queue handling, resident-facing touch terminal interactions, and attendance logging for frontline staff and community programs.',
-    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800',
-    brochure: pulsoBrochure,
+    image: '/assets/photos/pulso/banner.png',
+    bannerImage: '/assets/photos/pulso/banner.png',
+    photoDirectory: '/assets/photos/pulso',
+    brochure: '/assets/brochure/pulso.pdf',
     features: ['Touch Terminal', 'Service Requests', 'Attendance Logs', 'Queue Visibility'],
     highlights: [
       'Resident-friendly terminal flow for quick service intake',
