@@ -47,7 +47,7 @@ export const products = [
     description:
       'Comprehensive school information platform for student records, attendance, grading, scheduling, admissions, and parent communication in one connected system.',
     image: '/assets/photos/school-information-system/banner.png',
-    bannerImage: '/assets/photos/school-information-system/banner.png',
+    bannerImage: '/assets/photos/school-information-system/banner.svg',
     photoDirectory: '/assets/photos/school-information-system',
     brochure: '/assets/brochure/school-information-system.pdf',
     features: ['Student Records', 'Attendance Tracking', 'Grade Management', 'Parent Portal'],

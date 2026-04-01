@@ -1,0 +1,183 @@
+<svg width="1600" height="620" viewBox="0 0 1600 620" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="112" y1="54" x2="1494" y2="596" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#07141A"/>
+      <stop offset="0.55" stop-color="#0A1D24"/>
+      <stop offset="1" stop-color="#031014"/>
+    </linearGradient>
+    <linearGradient id="glowLeft" x1="70" y1="40" x2="518" y2="362" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#38BDF8"/>
+      <stop offset="1" stop-color="#14B8A6"/>
+    </linearGradient>
+    <linearGradient id="glowRight" x1="1110" y1="82" x2="1484" y2="418" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A3E635"/>
+      <stop offset="1" stop-color="#14B8A6"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="930" y1="48" x2="1516" y2="560" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0E2028"/>
+      <stop offset="1" stop-color="#081319"/>
+    </linearGradient>
+    <linearGradient id="line" x1="1096" y1="0" x2="1328" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#38BDF8"/>
+      <stop offset="0.5" stop-color="#2DD4BF"/>
+      <stop offset="1" stop-color="#A3E635"/>
+    </linearGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" stroke="#9FB3C8" stroke-opacity="0.07"/>
+    </pattern>
+    <filter id="blurLeft" x="-100" y="-100" width="760" height="760" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="70"/>
+    </filter>
+    <filter id="blurRight" x="910" y="-30" width="720" height="720" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="64"/>
+    </filter>
+    <filter id="shadow" x="870" y="20" width="700" height="574" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#020617" flood-opacity="0.38"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="620" fill="url(#bg)"/>
+  <rect width="1600" height="620" fill="url(#grid)"/>
+
+  <g opacity="0.82">
+    <g filter="url(#blurLeft)">
+      <circle cx="250" cy="182" r="170" fill="url(#glowLeft)"/>
+    </g>
+    <g filter="url(#blurRight)">
+      <circle cx="1286" cy="212" r="156" fill="url(#glowRight)"/>
+    </g>
+  </g>
+
+  <path d="M0 492C166 430 310 410 462 420C650 432 760 510 978 494C1168 480 1288 404 1600 430V620H0V492Z" fill="#02080A" fill-opacity="0.54"/>
+  <path d="M84 480C244 424 376 404 560 416" stroke="#38BDF8" stroke-opacity="0.16" stroke-width="2"/>
+  <path d="M160 536C330 484 492 484 660 518" stroke="#A3E635" stroke-opacity="0.14" stroke-width="2"/>
+
+  <rect x="86" y="64" width="208" height="46" rx="23" fill="#10323A" fill-opacity="0.96" stroke="#2DD4BF" stroke-opacity="0.24"/>
+  <circle cx="118" cy="87" r="7" fill="#A3E635"/>
+  <text x="140" y="94" fill="#E8FFF5" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="700" letter-spacing="0.18em">
+    SIS / LMS
+  </text>
+
+  <text x="86" y="202" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="66" font-weight="800">
+    School operations,
+  </text>
+  <text x="86" y="278" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="66" font-weight="800">
+    from enrollment to
+  </text>
+  <text x="86" y="354" fill="#A3E635" font-family="Segoe UI, Arial, sans-serif" font-size="66" font-weight="800">
+    classroom delivery.
+  </text>
+
+  <text x="88" y="414" fill="#C9D5DA" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="500">
+    Student records, attendance, grading, LMS activities, and parent updates
+  </text>
+  <text x="88" y="448" fill="#C9D5DA" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="500">
+    in one calm, connected academic workspace.
+  </text>
+
+  <g>
+    <rect x="88" y="486" width="194" height="84" rx="24" fill="#0D2027" stroke="#38BDF8" stroke-opacity="0.22"/>
+    <text x="116" y="520" fill="#9FD9E7" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="0.18em">
+      ENROLLMENT
+    </text>
+    <text x="116" y="552" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="800">
+      Central intake
+    </text>
+
+    <rect x="300" y="486" width="194" height="84" rx="24" fill="#0D2027" stroke="#2DD4BF" stroke-opacity="0.22"/>
+    <text x="328" y="520" fill="#A8F0DB" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="0.18em">
+      ATTENDANCE
+    </text>
+    <text x="328" y="552" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="800">
+      Live tracking
+    </text>
+
+    <rect x="512" y="486" width="206" height="84" rx="24" fill="#0D2027" stroke="#A3E635" stroke-opacity="0.24"/>
+    <text x="540" y="520" fill="#D8F99A" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="0.18em">
+      LMS DELIVERY
+    </text>
+    <text x="540" y="552" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="800">
+      Daily learning
+    </text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="920" y="48" width="590" height="518" rx="34" fill="url(#panel)" stroke="#294652" stroke-opacity="0.72"/>
+  </g>
+
+  <rect x="952" y="80" width="526" height="58" rx="20" fill="#0B161C" stroke="#28414C"/>
+  <circle cx="988" cy="109" r="7" fill="#38BDF8"/>
+  <circle cx="1012" cy="109" r="7" fill="#2DD4BF"/>
+  <circle cx="1036" cy="109" r="7" fill="#A3E635"/>
+  <text x="1076" y="117" fill="#E3EEF3" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="700">
+    Unified School Information and Learning Workspace
+  </text>
+
+  <rect x="956" y="158" width="156" height="108" rx="24" fill="#0C1A21" stroke="#24414B"/>
+  <text x="982" y="194" fill="#9FD9E7" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="0.16em">
+    ACTIVE STUDENTS
+  </text>
+  <text x="982" y="236" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="800">
+    2,480
+  </text>
+
+  <rect x="1126" y="158" width="156" height="108" rx="24" fill="#0C1A21" stroke="#24414B"/>
+  <text x="1154" y="194" fill="#A8F0DB" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="0.16em">
+    ATTENDANCE
+  </text>
+  <text x="1154" y="236" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="800">
+    97.8%
+  </text>
+
+  <rect x="1296" y="158" width="156" height="108" rx="24" fill="#0C1A21" stroke="#24414B"/>
+  <text x="1324" y="194" fill="#D8F99A" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="0.16em">
+    CLASSES
+  </text>
+  <text x="1324" y="236" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="800">
+    128
+  </text>
+
+  <rect x="956" y="284" width="320" height="230" rx="28" fill="#09141A" stroke="#24424B"/>
+  <text x="984" y="324" fill="#E3EEF3" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="700">
+    Academic operations snapshot
+  </text>
+  <text x="984" y="352" fill="#8EA5AE" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="500">
+    Enrollment, attendance, and LMS activity trending upward
+  </text>
+
+  <path d="M994 450L1060 418L1134 426L1200 370L1256 344" stroke="url(#line)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="994" cy="450" r="7" fill="#38BDF8"/>
+  <circle cx="1060" cy="418" r="7" fill="#22D3EE"/>
+  <circle cx="1134" cy="426" r="7" fill="#2DD4BF"/>
+  <circle cx="1200" cy="370" r="7" fill="#5EEAD4"/>
+  <circle cx="1256" cy="344" r="7" fill="#A3E635"/>
+  <path d="M992 472H1252" stroke="#27434D" stroke-width="2"/>
+  <path d="M994 472V344" stroke="#27434D" stroke-width="2"/>
+  <text x="990" y="492" fill="#7E97A1" font-family="Segoe UI, Arial, sans-serif" font-size="12">Mon</text>
+  <text x="1054" y="492" fill="#7E97A1" font-family="Segoe UI, Arial, sans-serif" font-size="12">Tue</text>
+  <text x="1128" y="492" fill="#7E97A1" font-family="Segoe UI, Arial, sans-serif" font-size="12">Wed</text>
+  <text x="1194" y="492" fill="#7E97A1" font-family="Segoe UI, Arial, sans-serif" font-size="12">Thu</text>
+  <text x="1248" y="492" fill="#7E97A1" font-family="Segoe UI, Arial, sans-serif" font-size="12">Fri</text>
+
+  <rect x="1292" y="284" width="160" height="108" rx="24" fill="#09141A" stroke="#24424B"/>
+  <text x="1318" y="320" fill="#A8F0DB" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="0.16em">
+    PARENT PORTAL
+  </text>
+  <text x="1318" y="362" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="31" font-weight="800">
+    86%
+  </text>
+  <text x="1318" y="386" fill="#8EA5AE" font-family="Segoe UI, Arial, sans-serif" font-size="14">
+    weekly engagement
+  </text>
+
+  <rect x="1292" y="406" width="160" height="108" rx="24" fill="#09141A" stroke="#24424B"/>
+  <text x="1318" y="442" fill="#D8F99A" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="0.16em">
+    LMS TASKS
+  </text>
+  <text x="1318" y="484" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="31" font-weight="800">
+    1,204
+  </text>
+  <text x="1318" y="508" fill="#8EA5AE" font-family="Segoe UI, Arial, sans-serif" font-size="14">
+    submissions synced
+  </text>
+</svg>
