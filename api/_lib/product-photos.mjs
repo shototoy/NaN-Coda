@@ -43,6 +43,10 @@ function sortPhotos(left, right) {
   return left.localeCompare(right, undefined, { numeric: true, sensitivity: 'base' })
 }
 
+function isGalleryPhoto(filename) {
+  return filename.toLowerCase().endsWith('.png') && !/^partner\d+\.png$/i.test(filename)
+}
+
 export async function listProductPhotoUrls(slugValue) {
   const productSlug = normalizeProductSlug(slugValue)
 
@@ -59,7 +63,7 @@ export async function listProductPhotoUrls(slugValue) {
   const directoryEntries = await fsPromises.readdir(photoDirectory, { withFileTypes: true })
 
   return directoryEntries
-    .filter((entry) => entry.isFile() && entry.name.toLowerCase().endsWith('.png'))
+    .filter((entry) => entry.isFile() && isGalleryPhoto(entry.name))
     .map((entry) => entry.name)
     .sort(sortPhotos)
     .map((filename) => `/assets/photos/${productSlug}/${filename}`)

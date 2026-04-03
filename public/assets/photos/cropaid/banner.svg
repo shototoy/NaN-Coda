@@ -1,0 +1,160 @@
+<svg width="1600" height="620" viewBox="0 0 1600 620" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="88" y1="40" x2="1518" y2="620" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#09150A"/>
+      <stop offset="0.52" stop-color="#102314"/>
+      <stop offset="1" stop-color="#071208"/>
+    </linearGradient>
+    <linearGradient id="glowLeft" x1="38" y1="10" x2="470" y2="330" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B8E16F"/>
+      <stop offset="1" stop-color="#4CAF50"/>
+    </linearGradient>
+    <linearGradient id="glowRight" x1="1110" y1="36" x2="1510" y2="324" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7CB342"/>
+      <stop offset="1" stop-color="#2E7D32"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="986" y1="58" x2="1508" y2="558" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#132519"/>
+      <stop offset="1" stop-color="#0D1810"/>
+    </linearGradient>
+    <linearGradient id="line" x1="1102" y1="0" x2="1290" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B8E16F"/>
+      <stop offset="0.5" stop-color="#76C95A"/>
+      <stop offset="1" stop-color="#2E7D32"/>
+    </linearGradient>
+    <pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse">
+      <path d="M44 0H0V44" stroke="#C6D7C6" stroke-opacity="0.06"/>
+    </pattern>
+    <filter id="blurLeft" x="-120" y="-120" width="740" height="740" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="70"/>
+    </filter>
+    <filter id="blurRight" x="952" y="-80" width="700" height="700" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="62"/>
+    </filter>
+    <filter id="shadow" x="942" y="30" width="602" height="544" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#020603" flood-opacity="0.42"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="620" fill="url(#bg)"/>
+  <rect width="1600" height="620" fill="url(#grid)"/>
+
+  <g opacity="0.82">
+    <g filter="url(#blurLeft)">
+      <circle cx="238" cy="150" r="156" fill="url(#glowLeft)"/>
+    </g>
+    <g filter="url(#blurRight)">
+      <circle cx="1308" cy="136" r="146" fill="url(#glowRight)"/>
+    </g>
+  </g>
+
+  <path d="M0 490C170 430 320 414 496 428C704 444 816 516 1010 506C1176 496 1292 438 1600 446V620H0V490Z" fill="#040906" fill-opacity="0.5"/>
+  <path d="M94 510C240 462 390 442 552 448" stroke="#B8E16F" stroke-opacity="0.16" stroke-width="2"/>
+  <path d="M174 560C330 518 474 518 636 548" stroke="#4CAF50" stroke-opacity="0.12" stroke-width="2"/>
+
+  <rect x="82" y="66" width="188" height="46" rx="23" fill="#16351B" fill-opacity="0.98" stroke="#7CB342" stroke-opacity="0.26"/>
+  <circle cx="112" cy="89" r="6" fill="#B8E16F"/>
+  <text x="136" y="96" fill="#F3FAED" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="700" letter-spacing="0.18em">
+    CROPAID
+  </text>
+
+  <text x="82" y="172" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="54" font-weight="800">
+    Crop incident reporting
+  </text>
+  <text x="82" y="236" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="54" font-weight="800">
+    built for farmers and
+  </text>
+  <text x="82" y="300" fill="#B8E16F" font-family="Segoe UI, Arial, sans-serif" font-size="54" font-weight="800">
+    agriculture response teams.
+  </text>
+
+  <text x="84" y="364" fill="#D5E4D1" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="500">
+    Report pest, flood, drought, and mixed damage with photo evidence,
+  </text>
+  <text x="84" y="394" fill="#D5E4D1" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="500">
+    GPS location, status tracking, admin verification, and map-based visibility.
+  </text>
+
+  <g>
+    <rect x="84" y="454" width="116" height="40" rx="15" fill="#132516" stroke="#7CB342" stroke-opacity="0.24"/>
+    <text x="117" y="479" fill="#F4FAED" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700">Pest</text>
+
+    <rect x="214" y="454" width="124" height="40" rx="15" fill="#132516" stroke="#7CB342" stroke-opacity="0.24"/>
+    <text x="246" y="479" fill="#F4FAED" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700">Flood</text>
+
+    <rect x="352" y="454" width="136" height="40" rx="15" fill="#132516" stroke="#7CB342" stroke-opacity="0.24"/>
+    <text x="385" y="479" fill="#F4FAED" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700">Drought</text>
+
+    <rect x="502" y="454" width="152" height="40" rx="15" fill="#132516" stroke="#7CB342" stroke-opacity="0.24"/>
+    <text x="535" y="479" fill="#F4FAED" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700">GPS + Photos</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="976" y="58" width="534" height="486" rx="32" fill="url(#panel)" stroke="#2C4A30" stroke-opacity="0.72"/>
+  </g>
+
+  <rect x="1004" y="84" width="478" height="56" rx="18" fill="#101C13" stroke="#29452E"/>
+  <circle cx="1038" cy="112" r="6" fill="#B8E16F"/>
+  <circle cx="1060" cy="112" r="6" fill="#76C95A"/>
+  <circle cx="1082" cy="112" r="6" fill="#43A047"/>
+  <text x="1120" y="118" fill="#EAF4E4" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="700">
+    Reports, map view, and verification
+  </text>
+
+  <rect x="1008" y="156" width="146" height="100" rx="22" fill="#0F1B13" stroke="#29452E"/>
+  <text x="1032" y="188" fill="#B7D7AE" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="700" letter-spacing="0.16em">
+    REPORT TYPES
+  </text>
+  <text x="1032" y="226" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="800">4</text>
+  <text x="1068" y="226" fill="#D8E7D4" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="600">pest / flood</text>
+
+  <rect x="1168" y="156" width="146" height="100" rx="22" fill="#0F1B13" stroke="#29452E"/>
+  <text x="1192" y="188" fill="#B7D7AE" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="700" letter-spacing="0.16em">
+    EVIDENCE
+  </text>
+  <text x="1192" y="220" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="12.5" font-weight="800">GPS + photos</text>
+
+  <rect x="1328" y="156" width="146" height="100" rx="22" fill="#0F1B13" stroke="#29452E"/>
+  <text x="1352" y="188" fill="#B7D7AE" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="700" letter-spacing="0.16em">
+    STATUS
+  </text>
+  <text x="1352" y="224" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="800">Trackable</text>
+
+  <rect x="1008" y="276" width="308" height="210" rx="26" fill="#0C1510" stroke="#29452E"/>
+  <text x="1034" y="312" fill="#EAF4E4" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="700">
+    Incident map and field view
+  </text>
+  <text x="1034" y="336" fill="#AFC2AD" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="500">
+    Pinned reports across barangays
+  </text>
+
+  <rect x="1036" y="360" width="252" height="92" rx="18" fill="#111D13"/>
+  <path d="M1062 402L1098 378L1144 386L1178 366L1226 376L1252 408L1236 434L1184 444L1124 436L1084 420Z" fill="#17311B" stroke="#355238" stroke-width="2"/>
+  <path d="M1100 378L1116 434" stroke="#355238" stroke-width="2"/>
+  <path d="M1144 386L1136 438" stroke="#355238" stroke-width="2"/>
+  <path d="M1180 366L1186 442" stroke="#355238" stroke-width="2"/>
+  <path d="M1082 420L1232 380" stroke="#29452E" stroke-width="2" stroke-linecap="round" stroke-dasharray="6 7"/>
+  <path d="M1100 404L1134 392L1174 404L1210 388" stroke="url(#line)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M1100 396L1100 408" stroke="#B8E16F" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="1100" cy="394" r="5.5" fill="#B8E16F"/>
+  <path d="M1172 394L1172 406" stroke="#76C95A" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="1172" cy="392" r="5.5" fill="#76C95A"/>
+  <path d="M1218 382L1218 394" stroke="#43A047" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="1218" cy="380" r="5.5" fill="#43A047"/>
+
+  <rect x="1330" y="276" width="144" height="98" rx="22" fill="#0C1510" stroke="#29452E"/>
+  <text x="1354" y="308" fill="#C7DEBB" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="700" letter-spacing="0.16em">
+    ADMIN VIEW
+  </text>
+  <text x="1354" y="340" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="800">Verify</text>
+  <text x="1354" y="360" fill="#D7E8D0" font-family="Segoe UI, Arial, sans-serif" font-size="13.5" font-weight="600">reports</text>
+
+  <rect x="1330" y="388" width="144" height="98" rx="22" fill="#0C1510" stroke="#29452E"/>
+  <text x="1354" y="420" fill="#C7DEBB" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="700" letter-spacing="0.16em">
+    ADVISORIES
+  </text>
+  <text x="1354" y="448" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="800">News and alerts</text>
+  <text x="1354" y="470" fill="#AFC2AD" font-family="Segoe UI, Arial, sans-serif" font-size="11.5">
+    Weather-aware updates
+  </text>
+</svg>

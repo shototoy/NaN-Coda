@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HRIS Banner Generator</title>
+  <style>
+    :root {
+      --bg: #08120f;
+      --bg-2: #05100d;
+      --panel: rgba(13, 34, 26, 0.92);
+      --panel-soft: rgba(16, 44, 34, 0.78);
+      --line: rgba(132, 255, 184, 0.1);
+      --line-strong: rgba(132, 255, 184, 0.18);
+      --text: #f7fff9;
+      --muted: rgba(230, 255, 239, 0.7);
+      --accent: #8ef06a;
+      --accent-2: #3fd69f;
+      --accent-3: #d9ff8f;
+      --shadow: 0 30px 80px rgba(0, 0, 0, 0.34);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      width: 1600px;
+      height: 900px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 14% 20%, rgba(110, 204, 78, 0.28), transparent 23%),
+        radial-gradient(circle at 88% 16%, rgba(80, 217, 161, 0.18), transparent 18%),
+        linear-gradient(180deg, #08120f 0%, #050a08 100%);
+      color: var(--text);
+      font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 44px 44px;
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: "";
+      position: absolute;
+      inset: auto -8% -24% -14%;
+      height: 50%;
+      background:
+        radial-gradient(circle at 16% 6%, rgba(76, 179, 99, 0.18), transparent 30%),
+        linear-gradient(180deg, rgba(14, 38, 28, 0.1), rgba(3, 10, 7, 0.92));
+      clip-path: polygon(0 58%, 20% 42%, 42% 56%, 56% 28%, 72% 46%, 100% 22%, 100% 100%, 0 100%);
+      pointer-events: none;
+    }
+
+    .canvas {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      padding: 70px 78px;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 42px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 24px;
+      border-radius: 999px;
+      border: 1px solid rgba(152, 255, 186, 0.16);
+      background: rgba(14, 39, 30, 0.82);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      width: fit-content;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-3), var(--accent));
+      box-shadow: 0 0 24px rgba(142, 240, 106, 0.55);
+    }
+
+    .left {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      z-index: 1;
+    }
+
+    .title {
+      margin: 42px 0 0;
+      max-width: 760px;
+      font-size: 78px;
+      line-height: 0.96;
+      letter-spacing: -0.05em;
+      font-weight: 900;
+    }
+
+    .title .accent {
+      color: var(--accent-3);
+    }
+
+    .subtitle {
+      margin: 28px 0 0;
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 28px;
+      line-height: 1.48;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 36px;
+      max-width: 780px;
+    }
+
+    .chip {
+      padding: 14px 22px;
+      border-radius: 18px;
+      border: 1px solid rgba(141, 245, 181, 0.18);
+      background: rgba(13, 35, 27, 0.86);
+      color: #f4fff5;
+      font-size: 20px;
+      font-weight: 700;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    }
+
+    .bottom-strip {
+      margin-top: auto;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      max-width: 820px;
+    }
+
+    .mini-card {
+      padding: 20px 22px 22px;
+      border-radius: 22px;
+      border: 1px solid rgba(140, 245, 180, 0.12);
+      background: linear-gradient(180deg, rgba(10, 25, 20, 0.9), rgba(7, 17, 13, 0.92));
+      box-shadow: var(--shadow);
+    }
+
+    .mini-label {
+      color: rgba(197, 255, 212, 0.58);
+      font-size: 14px;
+      letter-spacing: 0.18em;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .mini-value {
+      margin-top: 14px;
+      font-size: 27px;
+      line-height: 1.18;
+      font-weight: 800;
+    }
+
+    .right {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dashboard {
+      position: relative;
+      width: 100%;
+      max-width: 660px;
+      padding: 28px;
+      border-radius: 34px;
+      border: 1px solid rgba(151, 255, 191, 0.12);
+      background: linear-gradient(180deg, rgba(16, 41, 31, 0.95), rgba(12, 29, 23, 0.96));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .dashboard::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 80% 10%, rgba(111, 239, 160, 0.16), transparent 26%),
+        radial-gradient(circle at 18% 82%, rgba(171, 255, 118, 0.08), transparent 28%);
+      pointer-events: none;
+    }
+
+    .dash-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-radius: 22px;
+      background: rgba(7, 18, 14, 0.74);
+      border: 1px solid rgba(154, 255, 190, 0.08);
+    }
+
+    .dots {
+      display: flex;
+      gap: 10px;
+    }
+
+    .dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, var(--accent-3), var(--accent));
+    }
+
+    .dash-top span {
+      color: rgba(245, 255, 248, 0.92);
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .dash-grid {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 18px;
+    }
+
+    .stack {
+      display: grid;
+      gap: 18px;
+    }
+
+    .card {
+      position: relative;
+      border-radius: 26px;
+      border: 1px solid rgba(151, 255, 191, 0.08);
+      background: rgba(8, 18, 15, 0.72);
+      padding: 24px;
+      min-height: 150px;
+    }
+
+    .card.small {
+      min-height: 126px;
+    }
+
+    .card-title {
+      color: rgba(212, 255, 225, 0.8);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .card-value {
+      margin-top: 18px;
+      font-size: 22px;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .card-value.big {
+      font-size: 28px;
+    }
+
+    .card-sub {
+      margin-top: 8px;
+      color: rgba(225, 255, 234, 0.62);
+      font-size: 16px;
+      line-height: 1.38;
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .status-pill {
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(14, 36, 28, 0.88);
+      border: 1px solid rgba(151, 255, 191, 0.08);
+      min-height: 84px;
+    }
+
+    .status-label {
+      color: rgba(203, 255, 219, 0.6);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .status-value {
+      margin-top: 14px;
+      font-size: 18px;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .client-list {
+      margin-top: 18px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .client {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(15, 35, 28, 0.74);
+      border: 1px solid rgba(151, 255, 191, 0.08);
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .client::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-3), var(--accent-2));
+      box-shadow: 0 0 14px rgba(63, 214, 159, 0.55);
+      flex: 0 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <main class="canvas">
+    <section class="left">
+      <div class="eyebrow">HR Information System</div>
+      <h1 class="title">
+        Biometric attendance and
+        <span class="accent">leave workflows</span>
+        for municipal HR teams.
+      </h1>
+      <p class="subtitle">
+        Civil Service-aligned personnel records, memorandum-based forced stamping, kiosk and admin attendance,
+        leave request management, and export-ready DTR and leave documents in one platform.
+      </p>
+
+      <div class="chip-row">
+        <div class="chip">Leave Request Manager</div>
+        <div class="chip">Biometric Attendance</div>
+        <div class="chip">Export DTR</div>
+        <div class="chip">Export Leave Requests</div>
+        <div class="chip">Forced Stamping</div>
+      </div>
+
+      <div class="bottom-strip">
+        <div class="mini-card">
+          <div class="mini-label">Compliance</div>
+          <div class="mini-value">Civil Service-ready DTR and leave records</div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-label">Control</div>
+          <div class="mini-value">Memo-based corrections with rollback trail</div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-label">Operations</div>
+          <div class="mini-value">Kiosk, admin dashboard, departments, and credits</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="right">
+      <div class="dashboard">
+        <div class="dash-top">
+          <div class="dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+          <span>Municipal HRIS operations workspace</span>
+        </div>
+
+        <div class="dash-grid">
+          <div class="stack">
+            <div class="card">
+              <div class="card-title">Attendance Control</div>
+              <div class="card-value big">Fingerprint, RFID, PIN, and kiosk timekeeping</div>
+              <div class="status-grid">
+                <div class="status-pill">
+                  <div class="status-label">Logs</div>
+                  <div class="status-value">Present, late, absent, on leave</div>
+                </div>
+                <div class="status-pill">
+                  <div class="status-label">Adjustments</div>
+                  <div class="status-value">Forced stamping with memo reference</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card small">
+              <div class="card-title">Leave Manager</div>
+              <div class="card-value">Pending filing, approval, deduction, and leave credit tracking</div>
+            </div>
+
+            <div class="card small">
+              <div class="card-title">Exports</div>
+              <div class="card-value">DTR PDF batch export and leave record export</div>
+            </div>
+          </div>
+
+          <div class="stack">
+            <div class="card small">
+              <div class="card-title">Policy Fit</div>
+              <div class="card-value">Civil Service-compliant document workflows</div>
+              <div class="card-sub">Leave days override logs in DTR and reports stay audit-ready.</div>
+            </div>
+
+            <div class="card">
+              <div class="card-title">Client References</div>
+              <div class="client-list">
+                <div class="client">Civil Service Commission</div>
+                <div class="client">Municipality of Esperanza</div>
+              </div>
+            </div>
+
+            <div class="card small">
+              <div class="card-title">Records Core</div>
+              <div class="card-value">Employee profiles, departments, role-based access, and biometrics</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

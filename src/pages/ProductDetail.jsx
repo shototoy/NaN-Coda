@@ -5,6 +5,41 @@ import Lightbox from '../components/Lightbox'
 import { getProductBySlug } from '../data/products'
 import { apiRequest } from '../lib/api'
 
+function getGalleryCardCopy(imageUrl, index) {
+  const filename = imageUrl.split('/').pop() || `photo-${index + 1}.png`
+
+  if (filename.toLowerCase() === 'banner.png') {
+    return {
+      eyebrow: 'Banner Preview',
+      title: 'Product cover visual',
+      filename,
+    }
+  }
+
+  const normalizedTitle = filename
+    .replace(/\.png$/i, '')
+    .replace(/[-_]+/g, ' ')
+    .replace(/\b\w/g, (character) => character.toUpperCase())
+
+  return {
+    eyebrow: `Photo ${String(index + 1).padStart(2, '0')}`,
+    title: normalizedTitle,
+    filename,
+  }
+}
+
+function getEarlyAdopterName(earlyAdopter) {
+  return typeof earlyAdopter === 'string' ? earlyAdopter : earlyAdopter?.name || ''
+}
+
+function getEarlyAdopterLogo(product, index) {
+  if (!product?.photoDirectory) {
+    return ''
+  }
+
+  return `${product.photoDirectory}/partner${index + 1}.png`
+}
+
 export default function ProductDetail() {
   const { productSlug } = useParams()
   const product = getProductBySlug(productSlug)
@@ -138,43 +173,50 @@ export default function ProductDetail() {
               </Link>
             </div>
 
-            <div className="mt-8 rounded-2xl border border-gray-800 bg-black/40 p-4 md:p-5">
-              <div className="flex items-center justify-between gap-4">
+            <div className="mt-8 rounded-2xl border border-gray-800 bg-[linear-gradient(180deg,rgba(5,9,7,0.92),rgba(2,4,3,0.98))] p-4 md:p-5">
+              <div className="flex flex-wrap items-end justify-between gap-3">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.25em] text-emerald-500">Photo Gallery</p>
-                  <h2 className="mt-2 text-xl font-bold text-white md:text-2xl">PNG photos from this product folder</h2>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-emerald-500">Gallery</p>
+                  <h2 className="mt-2 text-lg font-bold text-white md:text-xl">Product visuals and reference screens</h2>
                 </div>
-                <p className="text-sm text-gray-500">{galleryImages.length} image{galleryImages.length === 1 ? '' : 's'}</p>
+                <p className="text-sm text-gray-500">{galleryImages.length} visual{galleryImages.length === 1 ? '' : 's'}</p>
               </div>
 
-              <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="mt-4 grid gap-4 sm:grid-cols-2">
                 {isLoadingGallery ? (
-                  <div className="rounded-xl border border-dashed border-gray-700 bg-gray-950/60 px-4 py-10 text-center text-sm text-gray-500 sm:col-span-2 lg:col-span-3">
+                  <div className="rounded-2xl border border-dashed border-gray-700 bg-gray-950/60 px-4 py-10 text-center text-sm text-gray-500 sm:col-span-2">
                     Loading gallery...
                   </div>
                 ) : galleryImages.length ? (
-                  galleryImages.map((imageUrl, index) => (
-                    <button
-                      key={imageUrl}
-                      type="button"
-                      onClick={() => setSelectedImage(imageUrl)}
-                      className="group overflow-hidden rounded-xl border border-gray-800 bg-gray-950/70 text-left transition hover:border-emerald-500/40"
-                    >
-                      <div className="aspect-[4/3] overflow-hidden">
-                        <img
-                          src={imageUrl}
-                          alt={`${product.name} gallery ${index + 1}`}
-                          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                        />
-                      </div>
-                      <div className="px-4 py-3">
-                        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-emerald-400">Photo {index + 1}</p>
-                        <p className="mt-1 text-sm text-gray-400">{imageUrl.split('/').pop()}</p>
-                      </div>
-                    </button>
-                  ))
+                  galleryImages.map((imageUrl, index) => {
+                    const galleryCardCopy = getGalleryCardCopy(imageUrl, index)
+
+                    return (
+                      <button
+                        key={imageUrl}
+                        type="button"
+                        onClick={() => setSelectedImage(imageUrl)}
+                        className="group relative overflow-hidden rounded-2xl border border-gray-800 bg-[#06100a] text-left transition hover:border-emerald-500/35"
+                      >
+                        <div className="aspect-[16/9] overflow-hidden">
+                          <img
+                            src={imageUrl}
+                            alt={`${product.name} gallery ${index + 1}`}
+                            className="h-full w-full object-cover object-center transition duration-500 group-hover:scale-[1.03]"
+                          />
+                        </div>
+                        <div className="pointer-events-none absolute inset-x-0 bottom-0 p-3 sm:p-4">
+                          <div className="rounded-xl border border-white/10 bg-black/60 px-3 py-2 backdrop-blur-sm">
+                            <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-emerald-300">{galleryCardCopy.eyebrow}</p>
+                            <p className="mt-1 text-sm font-semibold text-white">{galleryCardCopy.title}</p>
+                            <p className="mt-0.5 text-xs text-gray-300/80">{galleryCardCopy.filename}</p>
+                          </div>
+                        </div>
+                      </button>
+                    )
+                  })
                 ) : (
-                  <div className="rounded-xl border border-dashed border-gray-700 bg-gray-950/60 px-4 py-10 text-center text-sm text-gray-500 sm:col-span-2 lg:col-span-3">
+                  <div className="rounded-2xl border border-dashed border-gray-700 bg-gray-950/60 px-4 py-10 text-center text-sm text-gray-500 sm:col-span-2">
                     No PNG photos found in {product.photoDirectory}.
                   </div>
                 )}
@@ -185,7 +227,7 @@ export default function ProductDetail() {
           <div className="grid gap-4">
             <div className="relative overflow-hidden rounded-2xl border border-gray-800 bg-gray-950/70 p-6">
               <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-emerald-500/10 blur-3xl" />
-              <div className="relative flex min-h-[18rem] flex-col justify-between">
+              <div className="relative flex min-h-[18rem] flex-col gap-6">
                 <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-emerald-500/20 bg-emerald-500/10">
                   <Icon className="text-emerald-400" size={34} />
                 </div>
@@ -196,6 +238,37 @@ export default function ProductDetail() {
                     One flexible product layout, with content filled dynamically from the selected solution.
                   </p>
                 </div>
+                {product.earlyAdopters?.length ? (
+                  <div className="mt-auto rounded-2xl border border-gray-800 bg-black/35 p-4">
+                    <div className="mb-3 flex items-center justify-between gap-3">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-emerald-500">Early Adopters</p>
+                      <p className="text-xs text-gray-500">{product.earlyAdopters.length} partners</p>
+                    </div>
+                    <div className="space-y-3">
+                      {product.earlyAdopters.map((partner, index) => {
+                        const partnerName = getEarlyAdopterName(partner)
+                        const partnerLogo = getEarlyAdopterLogo(product, index)
+
+                        return (
+                          <div
+                            key={partnerName || `partner-${index + 1}`}
+                            className="grid grid-cols-[25%_1fr] items-center gap-3 rounded-xl border border-gray-800 bg-gray-950/70 px-3 py-3"
+                          >
+                            <img
+                              src={partnerLogo}
+                              alt={`${partnerName} logo`}
+                              className="h-14 w-full object-contain object-left"
+                              loading="lazy"
+                            />
+                            <div className="min-w-0">
+                              <p className="text-sm font-semibold leading-tight text-white">{partnerName}</p>
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                ) : null}
               </div>
             </div>
 
